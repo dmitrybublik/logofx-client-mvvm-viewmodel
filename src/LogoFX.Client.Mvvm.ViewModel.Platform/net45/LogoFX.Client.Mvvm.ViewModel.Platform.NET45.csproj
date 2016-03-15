@@ -1,0 +1,115 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{E96CB49C-8AA8-4CBC-B143-4C4DA11998F5}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>LogoFX.Client.Mvvm.ViewModel.Platform.NET45</RootNamespace>
+    <AssemblyName>LogoFX.Client.Mvvm.ViewModel.Platform.NET45</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;NET45</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\Bin\net45\Release\</OutputPath>
+    <DefineConstants>TRACE;NET45</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>..\..\Bin\net45\Release\LogoFX.Client.Mvvm.ViewModel.Platform.NET45.XML</DocumentationFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="LogoFX.Client.Core, Version=1.0.7.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\LogoFX.Client.Core.Core.1.0.7\lib\portable-net45+wpa8+win8+MonoAndroid+MonoTouch\LogoFX.Client.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="LogoFX.Client.Core.Platform, Version=1.0.7.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\LogoFX.Client.Core.1.0.7\lib\net45\LogoFX.Client.Core.Platform.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="LogoFX.Core, Version=1.0.7.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\LogoFX.Core.1.0.7\lib\portable-net45+wpa8+win8+MonoAndroid+MonoTouch\LogoFX.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\src\EnumViewModel.cs">
+      <Link>EnumViewModel.cs</Link>
+    </Compile>
+    <Compile Include="..\src\ObjectListViewModel.cs">
+      <Link>ObjectListViewModel.cs</Link>
+    </Compile>
+    <Compile Include="..\src\ObjectViewModel.cs">
+      <Link>ObjectViewModel.cs</Link>
+    </Compile>
+    <Compile Include="..\src\SelectorViewModel.cs">
+      <Link>SelectorViewModel.cs</Link>
+    </Compile>
+    <Compile Include="..\src\SimpleObjectsListViewModel.cs">
+      <Link>SimpleObjectsListViewModel.cs</Link>
+    </Compile>
+    <Compile Include="..\src\WrappingCollection.cs">
+      <Link>WrappingCollection.cs</Link>
+    </Compile>
+    <Compile Include="..\src\WrappingCollection.IndexedDictionary.cs">
+      <Link>WrappingCollection.IndexedDictionary.cs</Link>
+    </Compile>
+    <Compile Include="..\src\WrappingCollection.InternalCollectionManagement.cs">
+      <Link>WrappingCollection.InternalCollectionManagement.cs</Link>
+    </Compile>
+    <Compile Include="..\src\WrappingCollection.Notifiers.cs">
+      <Link>WrappingCollection.Notifiers.cs</Link>
+    </Compile>
+    <Compile Include="..\src\WrappingCollection.WithSelection.cs">
+      <Link>WrappingCollection.WithSelection.cs</Link>
+    </Compile>
+    <Compile Include="..\src\WrappingCollectionExtensions.cs">
+      <Link>WrappingCollectionExtensions.cs</Link>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\LogoFX.Client.Mvvm.ViewModel.Contracts\LogoFX.Client.Mvvm.ViewModel.Contracts.csproj">
+      <Project>{e2ffa98b-e7d6-4c7a-8b3f-fca4cecdda49}</Project>
+      <Name>LogoFX.Client.Mvvm.ViewModel.Contracts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\LogoFX.Client.Mvvm.ViewModel\LogoFX.Client.Mvvm.ViewModel.csproj">
+      <Project>{83C4C216-4685-41D3-B93E-17C820724E25}</Project>
+      <Name>LogoFX.Client.Mvvm.ViewModel</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
