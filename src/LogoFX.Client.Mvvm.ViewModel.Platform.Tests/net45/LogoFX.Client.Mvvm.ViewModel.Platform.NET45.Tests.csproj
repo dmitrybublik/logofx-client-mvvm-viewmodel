@@ -30,6 +30,31 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="LogoFX.Client.Core">
+      <HintPath>..\..\..\..\cl-mvvm-m\src\packages\LogoFX.Client.Core.Core.1.0.7\lib\portable-net45+wpa8+win8+MonoAndroid+MonoTouch\LogoFX.Client.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="LogoFX.Client.Core.Platform">
+      <HintPath>..\..\..\..\cl-mvvm-m\src\packages\LogoFX.Client.Core.1.0.7\lib\net45\LogoFX.Client.Core.Platform.dll</HintPath>
+    </Reference>
+    <Reference Include="LogoFX.Client.Mvvm.Model, Version=1.0.8.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\LogoFX.Client.Mvvm.Model.1.0.8\lib\net45\LogoFX.Client.Mvvm.Model.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="LogoFX.Client.Mvvm.Model.Contracts, Version=1.0.8.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\LogoFX.Client.Mvvm.Model.1.0.8\lib\net45\LogoFX.Client.Mvvm.Model.Contracts.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="LogoFX.Client.Testing.Infra.Platform, Version=1.0.5.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\LogoFX.Client.Tests.Shared.1.0.5\lib\net45\LogoFX.Client.Testing.Infra.Platform.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="LogoFX.Client.Testing.Shared.Platform, Version=1.0.5.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\LogoFX.Client.Tests.Shared.1.0.5\lib\net45\LogoFX.Client.Testing.Shared.Platform.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="LogoFX.Core">
+      <HintPath>..\..\..\..\cl-mvvm-m\src\packages\LogoFX.Core.1.0.7\lib\portable-net45+wpa8+win8+MonoAndroid+MonoTouch\LogoFX.Core.dll</HintPath>
+    </Reference>
     <Reference Include="nunit.framework, Version=2.6.4.14350, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
       <HintPath>..\..\packages\NUnit.2.6.4\lib\nunit.framework.dll</HintPath>
       <Private>True</Private>
@@ -76,6 +101,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\LogoFX.Client.Mvvm.ViewModel.Contracts\LogoFX.Client.Mvvm.ViewModel.Contracts.csproj">
+      <Project>{e2ffa98b-e7d6-4c7a-8b3f-fca4cecdda49}</Project>
+      <Name>LogoFX.Client.Mvvm.ViewModel.Contracts</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\LogoFX.Client.Mvvm.ViewModel.Platform\net45\LogoFX.Client.Mvvm.ViewModel.Platform.NET45.csproj">
       <Project>{E96CB49C-8AA8-4CBC-B143-4C4DA11998F5}</Project>
       <Name>LogoFX.Client.Mvvm.ViewModel.Platform.NET45</Name>

@@ -1,5 +1,5 @@
 using System.Windows.Threading;
-using LogoFX.Client.Tests.Infra;
+using LogoFX.Client.Testing.Infra;
 using NUnit.Framework;
 
 namespace LogoFX.Client.Mvvm.ViewModel.Tests.WrappingCollectionTests
@@ -9,18 +9,7 @@ namespace LogoFX.Client.Mvvm.ViewModel.Tests.WrappingCollectionTests
         [SetUp]
         protected void Setup()
         {
-            SetupCore();
-            SetupOverride();
-        }
-
-        private void SetupCore()
-        {
             Dispatch.Current = new SameThreadDispatch();
-        }
-
-        protected virtual void SetupOverride()
-        {
-            
-        }
+        }                
     }
 }
