@@ -216,7 +216,7 @@ namespace LogoFX.Client.Mvvm.ViewModel
                 };
 
                 _proxyNotifiers = new Dictionary<string, IList<PropertyInfo>>();
-#if WinRT
+#if NETFX_CORE
                 GetType().GetTypeInfo().DeclaredProperties
 #else
                 GetType().GetProperties(BindingFlags.Instance|BindingFlags.FlattenHierarchy|BindingFlags.Public)

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-#if WINDOWS_UWP || NETFX_CORE
+#if NETFX_CORE
 using System.Reflection;
 #endif
 using LogoFX.Client.Mvvm.ViewModel.Contracts;
