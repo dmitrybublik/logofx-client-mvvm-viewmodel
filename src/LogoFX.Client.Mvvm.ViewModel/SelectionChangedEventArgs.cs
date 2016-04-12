@@ -39,9 +39,9 @@ using System.Collections.Generic;
 namespace LogoFX.Client.Mvvm.ViewModel
 {
     /// <summary>
-    /// Selection notification event args
+    /// Selection notification event args.
     /// </summary>
-    /// <typeparam name="T">Type of selected items</typeparam>
+    /// <typeparam name="T">Type of selected items.</typeparam>
     public class SelectionChangedEventArgs<T> : EventArgs
     {
         private readonly IEnumerable<T> _selection;

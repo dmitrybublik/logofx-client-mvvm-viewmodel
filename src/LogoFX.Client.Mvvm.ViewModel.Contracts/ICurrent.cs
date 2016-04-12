@@ -1,7 +1,7 @@
 ﻿namespace LogoFX.Client.Mvvm.ViewModel.Contracts
 {
     /// <summary>
-    /// Item that can be current
+    /// Item that can be current.
     /// </summary>
     public interface ICurrent
     {

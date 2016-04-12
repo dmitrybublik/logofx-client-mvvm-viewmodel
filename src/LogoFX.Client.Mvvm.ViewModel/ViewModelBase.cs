@@ -9,7 +9,7 @@ using LogoFX.Client.Mvvm.ViewModel.Contracts;
 namespace LogoFX.Client.Mvvm.ViewModel
 {
     /// <summary>
-    /// Base class for <c>ViewModels</c>
+    /// Base class for <c>ViewModels</c>.
     /// </summary>
     public abstract class ViewModelBase : NotifyPropertyChangedBase<ViewModelBase>, IDisposable, IViewModel
         , INotifyDataErrorInfo
@@ -270,8 +270,6 @@ namespace LogoFX.Client.Mvvm.ViewModel
         #endregion
 
         private readonly Dictionary<string, List<string>> _currentErrors = new Dictionary<string, List<string>>();
-
-
 
         /// <summary>
         /// Gets the errors for property.
