@@ -1,12 +1,12 @@
 ﻿using System.Linq;
-using NUnit.Framework;
+using FluentAssertions;
+using Xunit;
 
 namespace LogoFX.Client.Mvvm.ViewModel.Tests.WrappingCollectionTests
-{
-    [TestFixture]
-    class InitializationTests : WrappingCollectionTestsBase
+{    
+    public class InitializationTests : WrappingCollectionTestsBase
     {        
-        [Test]
+        [Fact]
         public void AddingDataSource_DataSourceContainsModelsAndFactoryMethodIsSpecified_CollectionContainsConcreteTypeViewModelsWithDataSourceModels()
         {
             var dataSource = new[] {new TestModel(1), new TestModel(2), new TestModel(3)};
@@ -16,10 +16,10 @@ namespace LogoFX.Client.Mvvm.ViewModel.Tests.WrappingCollectionTests
 
             var viewModels = wrappingCollection.OfType<TestViewModel>().ToArray();
             var actualModels = viewModels.Select(t => t.Model).ToArray();
-            CollectionAssert.AreEqual(dataSource,actualModels);
+            actualModels.Should().BeEquivalentTo(dataSource);
         }
 
-        [Test]
+        [Fact]
         public void AddingDataSource_DataSourceContainsModelsAndFactoryMethodIsNotSpecified_CollectionContainsViewModelsWithDataSourceModels()
         {
             var dataSource = new[] { new TestModel(1), new TestModel(2), new TestModel(3) };
@@ -31,10 +31,10 @@ namespace LogoFX.Client.Mvvm.ViewModel.Tests.WrappingCollectionTests
             var viewModelType = viewModels.First().GetType();
             var modelPropertyInfo = viewModelType.GetProperty("Model");
             var actualModels = viewModels.Select(modelPropertyInfo.GetValue).ToArray();
-            CollectionAssert.AreEqual(dataSource, actualModels);
+            actualModels.Should().BeEquivalentTo(dataSource);
         }
 
-        [Test]
+        [Fact]
         public void AddingDataSource_DataSourceContainsModelsAndSelectionModeIsOne_FirstViewModelIsSelected()
         {
             var dataSource = new[] { new TestModel(1), new TestModel(2), new TestModel(3) };
@@ -45,10 +45,10 @@ namespace LogoFX.Client.Mvvm.ViewModel.Tests.WrappingCollectionTests
             var viewModels = wrappingCollection.OfType<TestViewModel>().ToArray();
             var firstViewModel = viewModels.First();
             var selectedViewModel = wrappingCollection.SelectedItem;
-            Assert.AreSame(firstViewModel, selectedViewModel);
+            selectedViewModel.Should().BeSameAs(firstViewModel);            
         }
 
-        [Test]
+        [Fact]
         public void AddingDataSource_DataSourceContainsModelsAndSelectionModeIsZeroOrMore_NoViewModelIsSelected()
         {
             var dataSource = new[] { new TestModel(1), new TestModel(2), new TestModel(3) };
@@ -57,7 +57,7 @@ namespace LogoFX.Client.Mvvm.ViewModel.Tests.WrappingCollectionTests
             wrappingCollection.AddSource(dataSource);
             
             var selectedViewModel = wrappingCollection.SelectedItem;
-            Assert.IsNull(selectedViewModel);
+            selectedViewModel.Should().BeNull();            
         }
     }
 }

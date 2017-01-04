@@ -1,13 +1,13 @@
 ﻿using System.Collections.ObjectModel;
 using System.Linq;
-using NUnit.Framework;
+using FluentAssertions;
+using Xunit;
 
 namespace LogoFX.Client.Mvvm.ViewModel.Tests.WrappingCollectionTests
-{
-    [TestFixture]
-    class DataSourceModificationsTests : WrappingCollectionTestsBase
+{    
+    public class DataSourceModificationsTests : WrappingCollectionTestsBase
     {
-        [Test]
+        [Fact]
         public void ModelIsAddedThenModelIsRemovedThenModelIsAdded()
         {
             var firstModel = new TestModel(1);
@@ -21,7 +21,7 @@ namespace LogoFX.Client.Mvvm.ViewModel.Tests.WrappingCollectionTests
 
             var viewModels = wrappingCollection.OfType<TestViewModel>();
             var actualViewModel = viewModels.SingleOrDefault(t => t.Model.Id == 1);
-            Assert.IsNotNull(actualViewModel);
+            actualViewModel.Should().NotBeNull();            
         }
     }
 }

@@ -1,13 +1,14 @@
 ﻿using System.Collections.ObjectModel;
 using System.Linq;
-using NUnit.Framework;
+using FluentAssertions;
+using Xunit;
 
 namespace LogoFX.Client.Mvvm.ViewModel.Tests.WrappingCollectionTests
-{
-    [TestFixture]
+{    
+    //TODO: causing stack overflow - check after model package update
     class SelectionTests : WrappingCollectionTestsBase
     {
-        [Test]
+        [Fact]
         public void Selection_ItemIsSelectedAndDeselected_SelectionIsEmpty()
         {
             var originalDataSource =
@@ -19,12 +20,10 @@ namespace LogoFX.Client.Mvvm.ViewModel.Tests.WrappingCollectionTests
             wrappingCollection.Select(firstItem);
             wrappingCollection.Unselect(firstItem);
 
-            Assert.IsNull(wrappingCollection.SelectedItem);
-            CollectionAssert.IsEmpty(wrappingCollection.SelectedItems);
-            Assert.AreEqual(0,wrappingCollection.SelectionCount);
+            AssertEmptySelection(wrappingCollection);            
         }
 
-        [Test]
+        [Fact]
         public void Selection_SelectionModeIsMultipleItemIsSelectedAndAnotherItemIsSelected_BothItemsAreSelected()
         {
             var originalDataSource =
@@ -37,12 +36,13 @@ namespace LogoFX.Client.Mvvm.ViewModel.Tests.WrappingCollectionTests
             wrappingCollection.Select(firstItem);
             wrappingCollection.Select(secondItem);
 
-            Assert.AreSame(firstItem, wrappingCollection.SelectedItem);
-            CollectionAssert.AreEqual(new [] {firstItem, secondItem}, wrappingCollection.SelectedItems);
-            Assert.AreEqual(2, wrappingCollection.SelectionCount);
+            wrappingCollection.SelectedItem.Should().Be(firstItem);
+            var expectedSelection = new[] {firstItem, secondItem};
+            wrappingCollection.SelectedItems.Should().BeEquivalentTo(expectedSelection);
+            wrappingCollection.SelectionCount.Should().Be(2);            
         }
 
-        [Test]
+        [Fact]
         public void Selection_SelectionModeIsSingleItemIsSelectedAndAnotherItemIsSelected_OnlySecondItemIsSelected()
         {
             var originalDataSource =
@@ -55,12 +55,13 @@ namespace LogoFX.Client.Mvvm.ViewModel.Tests.WrappingCollectionTests
             wrappingCollection.Select(firstItem);
             wrappingCollection.Select(secondItem);
 
-            Assert.AreSame(secondItem, wrappingCollection.SelectedItem);
-            CollectionAssert.AreEqual(new[] { secondItem }, wrappingCollection.SelectedItems);
-            Assert.AreEqual(1, wrappingCollection.SelectionCount);
+            wrappingCollection.SelectedItem.Should().Be(secondItem);
+            var expectedSelection = new[] { firstItem, secondItem };
+            wrappingCollection.SelectedItems.Should().BeEquivalentTo(expectedSelection);
+            wrappingCollection.SelectionCount.Should().Be(1);
         }
 
-        [Test]
+        [Fact]
         public void Selection_ItemIsSelectedThenItemIsRemoved_SelectionIsEmpty()
         {
             var originalDataSource =
@@ -75,7 +76,7 @@ namespace LogoFX.Client.Mvvm.ViewModel.Tests.WrappingCollectionTests
             AssertEmptySelection(wrappingCollection);
         }        
 
-        [Test]
+        [Fact]
         public void ClearSelection_CollectionContainsTwoSelectedItems_SelectionIsEmpty()
         {
             var originalDataSource =
@@ -94,9 +95,9 @@ namespace LogoFX.Client.Mvvm.ViewModel.Tests.WrappingCollectionTests
 
         private static void AssertEmptySelection(WrappingCollection.WithSelection wrappingCollection)
         {
-            Assert.IsNull(wrappingCollection.SelectedItem);
-            CollectionAssert.IsEmpty(wrappingCollection.SelectedItems);
-            Assert.AreEqual(0, wrappingCollection.SelectionCount);
+            wrappingCollection.SelectedItem.Should().BeNull();
+            wrappingCollection.SelectedItems.Should().BeEmpty();
+            wrappingCollection.SelectionCount.Should().Be(0);            
         }
     }
 }

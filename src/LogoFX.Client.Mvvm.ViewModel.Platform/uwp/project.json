@@ -2,7 +2,7 @@
   "dependencies": {
     "LogoFX.Client.Core": "1.0.8",
     "LogoFX.Core": "1.0.7",
-    "Microsoft.NETCore.UniversalWindowsPlatform": "5.0.0"
+    "Microsoft.NETCore.UniversalWindowsPlatform": "5.2.2"
   },
   "frameworks": {
     "uap10.0": {}

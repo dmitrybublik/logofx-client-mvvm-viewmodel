@@ -1,13 +1,13 @@
 ﻿using System.Collections.Specialized;
+using FluentAssertions;
 using LogoFX.Core;
-using NUnit.Framework;
+using Xunit;
 
 namespace LogoFX.Client.Mvvm.ViewModel.Tests.WrappingCollectionTests
-{
-    [TestFixture]
-    class NotificationTests : WrappingCollectionTestsBase
+{    
+    public class NotificationTests : WrappingCollectionTestsBase
     {
-        [Test]
+        [Fact]
         public void
             WhenCollectionIsCreatedWithRangeAndSourceIsUpdatedWithAddRange_ThenSingleNotificationIsRaisedWithAllWrappers
             ()
@@ -23,14 +23,14 @@ namespace LogoFX.Client.Mvvm.ViewModel.Tests.WrappingCollectionTests
             collection.AddSource(source);
             collection.CollectionChanged += (sender, args) =>
             {
-                CollectionAssert.AreEquivalent(items, args.NewItems);
+                args.NewItems.Should().BeEquivalentTo(items);                
                 numberOfTimes++;
-                Assert.AreEqual(1, numberOfTimes);
+                numberOfTimes.Should().Be(1);                
             };
             source.AddRange(items);
         }
 
-        [Test]
+        [Fact]
         public void
             WhenCollectionIsCreatedWithRangeAndSingleItemAndSourceIsUpdatedWithRemoveRange_ThenSingleNotificationIsRaisedWithAllWrappers
             ()
@@ -47,14 +47,14 @@ namespace LogoFX.Client.Mvvm.ViewModel.Tests.WrappingCollectionTests
             source.AddRange(items);
             collection.CollectionChanged += (sender, args) =>
             {
-                CollectionAssert.AreEquivalent(items, args.OldItems);
+                args.OldItems.Should().BeEquivalentTo(items);
                 numberOfTimes++;
-                Assert.AreEqual(1, numberOfTimes);
+                numberOfTimes.Should().Be(1);
             };
             source.RemoveRange(items);
         }
 
-        [Test]
+        [Fact]
         public void
             WhenCollectionIsCreatedWithRangeAndMultipleItemsAndSourceIsUpdatedWithRemoveRange_ThenSingleNotificationIsRaisedWithAllWrappersAndActionIsReset
             ()
@@ -71,14 +71,14 @@ namespace LogoFX.Client.Mvvm.ViewModel.Tests.WrappingCollectionTests
             source.AddRange(items);
             collection.CollectionChanged += (sender, args) =>
             {
-                Assert.AreEqual(NotifyCollectionChangedAction.Reset, args.Action);
+                args.Action.Should().Be(NotifyCollectionChangedAction.Reset);
                 numberOfTimes++;
-                Assert.AreEqual(1, numberOfTimes);
+                numberOfTimes.Should().Be(1);
             };
             source.RemoveRange(items);
         }
 
-        [Test]
+        [Fact]
         public void
             WhenCollectionIsCreatedWithRangeAndSingleItemAndSourceIsCleared_ThenSingleNotificationIsRaisedWithAllWrappers
             ()
@@ -95,14 +95,14 @@ namespace LogoFX.Client.Mvvm.ViewModel.Tests.WrappingCollectionTests
             source.AddRange(items);            
             collection.CollectionChanged += (sender, args) =>
             {
-                CollectionAssert.AreEquivalent(items, args.OldItems);
+                args.OldItems.Should().BeEquivalentTo(items);
                 numberOfTimes++;
-                Assert.AreEqual(1, numberOfTimes);
+                numberOfTimes.Should().Be(1);
             };
             source.Clear();
         }
 
-        [Test]
+        [Fact]
         public void
             WhenCollectionIsCreatedWithRangeAndMultipleItemsAndSourceIsCleared_ThenSingleNotificationIsRaisedWithAllWrappersAndActionisReset
             ()
@@ -119,9 +119,9 @@ namespace LogoFX.Client.Mvvm.ViewModel.Tests.WrappingCollectionTests
             source.AddRange(items);
             collection.CollectionChanged += (sender, args) =>
             {
-                Assert.AreEqual(NotifyCollectionChangedAction.Reset, args.Action);
+                args.Action.Should().Be(NotifyCollectionChangedAction.Reset);
                 numberOfTimes++;
-                Assert.AreEqual(1, numberOfTimes);
+                numberOfTimes.Should().Be(1);
             };
             source.Clear();
         }

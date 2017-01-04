@@ -12,6 +12,6 @@ namespace LogoFX.Client.Mvvm.ViewModel.Tests.WrappingCollectionTests
         public override int GetHashCode()
         {
             return Id;
-        }
+        }        
     }
 }

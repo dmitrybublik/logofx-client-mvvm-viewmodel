@@ -1,14 +1,14 @@
 ﻿using System.Linq;
+using FluentAssertions;
 using LogoFX.Client.Mvvm.Model;
 using LogoFX.Client.Mvvm.Model.Contracts;
-using NUnit.Framework;
+using Xunit;
 
 namespace LogoFX.Client.Mvvm.ViewModel.Tests.WrappingCollectionTests
-{
-    [TestFixture]
-    class BulkTests : WrappingCollectionTestsBase
+{    
+    public class BulkTests : WrappingCollectionTestsBase
     {
-        [Test]
+        [Fact]
         public void
             GivenCollectionIsBulkAndSourceWithTwoItemsIsAdded_WhenSecondItemIsRemoved_ThenCollectionContainsOneItem()
         {
@@ -24,7 +24,8 @@ namespace LogoFX.Client.Mvvm.ViewModel.Tests.WrappingCollectionTests
             source.AddRange(new[] { modelOne, modelTwo });
             source.Remove(modelTwo);
 
-            CollectionAssert.AreEqual(new [] {modelOne}, wrappingCollection.OfType<TestModel>().ToArray());
+            var expectedModels = new[] {modelOne};
+            wrappingCollection.OfType<TestModel>().ToArray().Should().BeEquivalentTo(expectedModels);            
         }
     }
 }

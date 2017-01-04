@@ -1,13 +1,13 @@
 ﻿using System.Collections.ObjectModel;
 using System.Linq;
-using NUnit.Framework;
+using FluentAssertions;
+using Xunit;
 
 namespace LogoFX.Client.Mvvm.ViewModel.Tests.WrappingCollectionTests
-{
-    [TestFixture]
-    class DataSourceCollectionChangedTests : WrappingCollectionTestsBase
+{        
+    public class DataSourceCollectionChangedTests : WrappingCollectionTestsBase
     {
-        [Test]
+        [Fact]
         public void DataSourceCollectionChanged_ModelIsAdded_ViewModelIsAdded()
         {
             var dataSource =
@@ -19,10 +19,10 @@ namespace LogoFX.Client.Mvvm.ViewModel.Tests.WrappingCollectionTests
 
             var viewModels = wrappingCollection.OfType<TestViewModel>();
             var actualViewModel = viewModels.SingleOrDefault(t => t.Model.Id == 4);
-            Assert.IsNotNull(actualViewModel);
+            actualViewModel.Should().NotBeNull();            
         }
 
-        [Test]
+        [Fact]
         public void DataSourceCollectionChanged_ModelIsRemoved_ViewModelIsRemoved()
         {
             var dataSource =
@@ -34,10 +34,10 @@ namespace LogoFX.Client.Mvvm.ViewModel.Tests.WrappingCollectionTests
 
             var viewModels = wrappingCollection.OfType<TestViewModel>();
             var actualViewModel = viewModels.SingleOrDefault(t => t.Model.Id == 3);
-            Assert.IsNull(actualViewModel);
+            actualViewModel.Should().BeNull();           
         }
 
-        [Test]
+        [Fact]
         public void DataSourceCollectionChanged_DataSourceIsCleared_ViewModelsAreCleared()
         {
             var dataSource =
@@ -47,11 +47,11 @@ namespace LogoFX.Client.Mvvm.ViewModel.Tests.WrappingCollectionTests
             wrappingCollection.AddSource(dataSource);
             dataSource.Clear();
 
-            var viewModels = wrappingCollection.OfType<TestViewModel>();            
-            CollectionAssert.IsEmpty(viewModels);
+            var viewModels = wrappingCollection.OfType<TestViewModel>();
+            viewModels.Should().BeEmpty();            
         }
 
-        [Test]
+        [Fact]
         public void DataSourcesCollectionChanged_DataSourceIsAdded_ViewModelsAreAdded()
         {
             var originalDataSource =
@@ -62,12 +62,12 @@ namespace LogoFX.Client.Mvvm.ViewModel.Tests.WrappingCollectionTests
             wrappingCollection.AddSource(originalDataSource);
             wrappingCollection.AddSource(anotherDataSource);
 
-            CollectionAssert.AllItemsAreInstancesOfType(wrappingCollection,typeof(TestViewModel));
+            wrappingCollection.Should().ContainItemsAssignableTo<TestViewModel>();            
             var expectedModels = originalDataSource.Concat(anotherDataSource);
-            CollectionAssert.AreEqual(expectedModels,wrappingCollection.OfType<TestViewModel>().Select(t => t.Model));
+            wrappingCollection.OfType<TestViewModel>().Select(t => t.Model).Should().BeEquivalentTo(expectedModels);            
         }
 
-        [Test]
+        [Fact]
         public void DataSourcesCollectionChanged_DataSourceIsRemoved_ViewModelsAreRemoved()
         {
             var originalDataSource =
@@ -77,10 +77,10 @@ namespace LogoFX.Client.Mvvm.ViewModel.Tests.WrappingCollectionTests
             wrappingCollection.AddSource(originalDataSource);
             wrappingCollection.RemoveSource(originalDataSource);
 
-            CollectionAssert.IsEmpty(wrappingCollection);            
+            wrappingCollection.Should().BeEmpty();            
         }
 
-        [Test]
+        [Fact]
         public void DataSourcesCollectionChanged_DataSourcesAreCleared_ViewModelsAreRemoved()
         {
             var originalDataSource =
@@ -90,10 +90,10 @@ namespace LogoFX.Client.Mvvm.ViewModel.Tests.WrappingCollectionTests
             wrappingCollection.AddSource(originalDataSource);
             wrappingCollection.ClearSources();
 
-            CollectionAssert.IsEmpty(wrappingCollection);
+            wrappingCollection.Should().BeEmpty();
         }
 
-        [Test]
+        [Fact]
         public void DataSourcesCollectionChanged_DataSourceIsAddedThenAllModelsAreRemovedThenModelIsAdded_ViewModelIsAdded()
         {
             var models = new[] { new TestModel(1), new TestModel(2), new TestModel(3)};
@@ -108,8 +108,8 @@ namespace LogoFX.Client.Mvvm.ViewModel.Tests.WrappingCollectionTests
             originalDataSource.Remove(models[2]);
             originalDataSource.Add(newModel);
 
-            var expectedModels = new[] {newModel};            
-            CollectionAssert.AreEqual(expectedModels, wrappingCollection.OfType<TestViewModel>().Select(t => t.Model).ToArray());
+            var expectedModels = new[] {newModel};
+            wrappingCollection.OfType<TestViewModel>().Select(t => t.Model).Should().BeEquivalentTo(expectedModels);            
         }
     }
 }
