@@ -5,8 +5,8 @@ using Xunit;
 
 namespace LogoFX.Client.Mvvm.ViewModel.Tests.WrappingCollectionTests
 {    
-    //TODO: causing stack overflow - check after model package update
-    class SelectionTests : WrappingCollectionTestsBase
+    
+    public class SelectionTests : WrappingCollectionTestsBase
     {
         [Fact]
         public void Selection_ItemIsSelectedAndDeselected_SelectionIsEmpty()
@@ -42,8 +42,8 @@ namespace LogoFX.Client.Mvvm.ViewModel.Tests.WrappingCollectionTests
             wrappingCollection.SelectionCount.Should().Be(2);            
         }
 
-        [Fact]
-        public void Selection_SelectionModeIsSingleItemIsSelectedAndAnotherItemIsSelected_OnlySecondItemIsSelected()
+        //TODO: causing stack overflow - check after model package update      
+        void Selection_SelectionModeIsSingleItemIsSelectedAndAnotherItemIsSelected_OnlySecondItemIsSelected()
         {
             var originalDataSource =
                 new ObservableCollection<TestModel>(new[] { new TestModel(1), new TestModel(2), new TestModel(3) });
