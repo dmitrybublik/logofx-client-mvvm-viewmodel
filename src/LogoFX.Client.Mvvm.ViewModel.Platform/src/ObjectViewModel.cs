@@ -81,17 +81,16 @@ namespace LogoFX.Client.Mvvm.ViewModel
         [Obsolete("Use ObjectModel instead")]
 #endif
         public new T Model
-        {get
         {
+            get
+            {
 #if WinRT
-            throw new NotImplementedException();
+                throw new NotImplementedException();
 #else
-            return (T)InternalModel;
+                return (T) InternalModel;
 #endif
+            }
         }
-        }
-
-
 
         #endregion
     }
@@ -102,7 +101,6 @@ namespace LogoFX.Client.Mvvm.ViewModel
     [DebuggerDisplay("Model={_model}")]
     public class ObjectViewModel : ViewModelBase, IObjectViewModel
     {
-
         /// <summary>
         /// Initializes a new instance of the <see cref="ObjectViewModel"/> class.
         /// </summary>

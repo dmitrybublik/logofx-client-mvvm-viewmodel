@@ -1,7 +1,7 @@
 ﻿namespace LogoFX.Client.Mvvm.ViewModel.Contracts
 {
     /// <summary>
-    /// Represents an object that can select.
+    /// Represents an object that can select an item.
     /// </summary>
     public interface ISelect
     {

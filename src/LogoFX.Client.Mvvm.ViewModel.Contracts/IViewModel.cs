@@ -35,15 +35,7 @@ namespace LogoFX.Client.Mvvm.ViewModel.Contracts
         /// <value>
         /// 	<c>true</c> if this instance is current; otherwise, <c>false</c>.
         /// </value>
-        bool IsCurrent { get; set; }
-
-        ///// <summary>
-        ///// Gets or sets a value indicating whether this instance is selected.
-        ///// </summary>
-        ///// <value>
-        ///// 	<c>true</c> if this instance is selected; otherwise, <c>false</c>.
-        ///// </value>
-        //bool IsSelected { get; set; }
+        bool IsCurrent { get; set; }        
 
         /// <summary>
         /// Gets or sets the last error.

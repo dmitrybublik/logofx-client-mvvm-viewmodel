@@ -18,7 +18,7 @@ namespace LogoFX.Client.Mvvm.ViewModel
         private readonly ObservableCollection<IEnumerable> _sources = new ObservableCollection<IEnumerable>();
         private readonly ICollectionManager _collectionManager;
         private Func<object, object> _factoryMethod;
-        private Func<object,object> DefaultFactoryMethod =
+        private readonly Func<object,object> _defaultFactoryMethod =
             a => new { Model = a }
             ;
 
@@ -148,7 +148,7 @@ namespace LogoFX.Client.Mvvm.ViewModel
         /// <returns></returns>
         protected virtual object CreateWrapper(object obj)
         {
-            return FactoryMethod != null ? FactoryMethod(obj) : DefaultFactoryMethod(obj);
+            return FactoryMethod != null ? FactoryMethod(obj) : _defaultFactoryMethod(obj);
         }
 
         private void OnCollectionChangedCore(object o,NotifyCollectionChangedEventArgs args)

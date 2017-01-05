@@ -7,14 +7,7 @@ namespace LogoFX.Client.Mvvm.ViewModel.Contracts
     /// Object that have multiple selected items
     /// </summary>
     /// <typeparam name="T">type of selected items</typeparam>
-    public interface 
-#if !SILVERLIGHT
-
-        IHaveSelectedItems<out T> 
-#else
-        IHaveSelectedItems<T> 
-#endif
-        : IHaveSelectedItems
+    public interface IHaveSelectedItems<out T> : IHaveSelectedItems
     {
         /// <summary>
         /// Selected items

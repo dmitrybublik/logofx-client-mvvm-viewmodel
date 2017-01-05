@@ -33,10 +33,6 @@
     <DocumentationFile>..\Bin\portable\Release\LogoFX.Client.Mvvm.ViewModel.Contracts.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="ICanBeBusy.cs" />
     <Compile Include="ICurrent.cs" />
     <Compile Include="IHaveCurrentItem.cs" />

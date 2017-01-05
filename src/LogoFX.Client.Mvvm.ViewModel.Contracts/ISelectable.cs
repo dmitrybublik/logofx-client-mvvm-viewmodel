@@ -8,15 +8,6 @@
         /// <summary>
         /// Selection status
         /// </summary>
-        bool IsSelected { get; set; }
-
-        ///// <summary>
-        ///// Selection event
-        ///// </summary>
-        //event EventHandler Selected;
-        ///// <summary>
-        ///// Un-selection event
-        ///// </summary>
-        //event EventHandler UnSelected;
+        bool IsSelected { get; set; }        
     }
 }   

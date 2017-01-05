@@ -1,7 +1,7 @@
 ﻿ namespace LogoFX.Client.Mvvm.ViewModel.Contracts
 {
     /// <summary>
-    /// Represents an object that can unselect.
+    /// Represents an object that can unselect an item or collection of items.
     /// </summary>
     public interface IUnselect
     {
