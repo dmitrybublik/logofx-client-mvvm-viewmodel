@@ -89,9 +89,7 @@ namespace LogoFX.Client.Mvvm.ViewModel
 
         private void InvokeOnUiThread(Action a)
         {
-#if SILVERLIGHT                        
-            Dispatch.Current.BeginOnUiThread(
-#elif WinRT
+#if WinRT
             Dispatch.Current.OnUiThread(
 #else
             Dispatch.Current.BeginOnUiThread(UpdatePriority,

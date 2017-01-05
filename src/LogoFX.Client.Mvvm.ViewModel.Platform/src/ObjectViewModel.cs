@@ -198,12 +198,8 @@ namespace LogoFX.Client.Mvvm.ViewModel
         }
 
         private Dictionary<string, IList<PropertyInfo>> _proxyNotifiers; 
-#if SILVERLIGHT 
-        public
-#else
-        private
-#endif
-        void OnModelPropertyChangedCore(object sender, PropertyChangedEventArgs e)
+
+        private void OnModelPropertyChangedCore(object sender, PropertyChangedEventArgs e)
         {
             if(_proxyNotifiers == null)
             {
