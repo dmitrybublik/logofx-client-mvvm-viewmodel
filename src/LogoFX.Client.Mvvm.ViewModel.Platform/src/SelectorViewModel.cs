@@ -153,13 +153,7 @@ namespace LogoFX.Client.Mvvm.ViewModel
             }
         }
 
-#if SILVERLIGHT
-        public
-#else
-        private
-#endif
-
- void InternalIsSelectedChanged(object o, PropertyChangedEventArgs args)
+        private void InternalIsSelectedChanged(object o, PropertyChangedEventArgs args)
         {
             if (o != null && (o is IObjectViewModel) && !Children.Contains((IObjectViewModel)o))
                 ((INotifyPropertyChanged)o).PropertyChanged -= _internalSelectionHandler;
