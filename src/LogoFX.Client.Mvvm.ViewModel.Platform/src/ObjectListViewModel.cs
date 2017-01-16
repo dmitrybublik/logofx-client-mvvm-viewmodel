@@ -232,12 +232,8 @@ namespace LogoFX.Client.Mvvm.ViewModel
             }
         }
 
-#if !WinRT
-        private 
-#else
-        public
-#endif
-            void ListCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+
+        public void ListCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             switch (e.Action)
             {
@@ -245,18 +241,15 @@ namespace LogoFX.Client.Mvvm.ViewModel
 
                     foreach (object item in e.NewItems)
                     {
-#if WinRT
-                        Dispatch.Current.OnUiThread(
-#else
                         Dispatch.Current.BeginOnUiThread(
-#endif
-                        () =>
-                        {
-                             var viewmodel = CreateViewModel(item);
-                             InternalChildren.Add(viewmodel);
-                             OnChildrenChangedInternal(
-                                 new ChildEventArgs<IObjectViewModel>(ChildOperation.Add, viewmodel, InternalChildren.IndexOf(viewmodel)));
-                        });                        
+                            () =>
+                            {
+                                var viewmodel = CreateViewModel(item);
+                                InternalChildren.Add(viewmodel);
+                                OnChildrenChangedInternal(
+                                    new ChildEventArgs<IObjectViewModel>(ChildOperation.Add, viewmodel,
+                                        InternalChildren.IndexOf(viewmodel)));
+                            });
                     }
 
 
@@ -264,30 +257,27 @@ namespace LogoFX.Client.Mvvm.ViewModel
 
                 case NotifyCollectionChangedAction.Remove:
                     HashSet<IObjectViewModel> hss;
-#if WinRT
-                    Dispatch.Current.OnUiThread(
-#else
                     Dispatch.Current.BeginOnUiThread(
-#endif
-() =>
-                    {
-                        hss = new HashSet<IObjectViewModel>(Children);
-
-                        if (hss == null)
-                            return;
-
-                        IList<object> oldItems = e.OldItems
-                            .Cast<object>()
-                            .ToList();
-
-                        IEnumerable<IObjectViewModel> itemsToRemove = hss.Where(a => oldItems.Contains(a.Model));
-                        foreach (var item in itemsToRemove)
+                        () =>
                         {
-                            InternalChildren.Remove(item);
-                            OnChildrenChangedInternal(new ChildEventArgs<IObjectViewModel>(ChildOperation.Remove, item, -1));
-                            item.Dispose();
-                        }
-                    });
+                            hss = new HashSet<IObjectViewModel>(Children);
+
+                            if (hss == null)
+                                return;
+
+                            IList<object> oldItems = e.OldItems
+                                .Cast<object>()
+                                .ToList();
+
+                            IEnumerable<IObjectViewModel> itemsToRemove = hss.Where(a => oldItems.Contains(a.Model));
+                            foreach (var item in itemsToRemove)
+                            {
+                                InternalChildren.Remove(item);
+                                OnChildrenChangedInternal(new ChildEventArgs<IObjectViewModel>(ChildOperation.Remove,
+                                    item, -1));
+                                item.Dispose();
+                            }
+                        });
 
                     break;
 
@@ -296,27 +286,25 @@ namespace LogoFX.Client.Mvvm.ViewModel
 
                 case NotifyCollectionChangedAction.Reset:
                     var newResetList = Models.Select(CreateViewModel);
-#if WinRT
-                    Dispatch.Current.OnUiThread(
-#else
                     Dispatch.Current.BeginOnUiThread(
-#endif
-() =>
-                    {
-                       
-                        HashSet<IObjectViewModel> hs = new HashSet<IObjectViewModel>(Children);                        
-                        foreach (IObjectViewModel c in hs)
+                        () =>
                         {
-                            InternalChildren.Remove(c);
-                            OnChildrenChangedInternal(new ChildEventArgs<IObjectViewModel>(ChildOperation.Remove, c, -1));
-                            c.Dispose();                            
-                        }
-                        foreach (IObjectViewModel a in newResetList)
-                        {
-                            InternalChildren.Add(a);
-                            OnChildrenChangedInternal(new ChildEventArgs<IObjectViewModel>(ChildOperation.Add, a, InternalChildren.Count-1));                            
-                        }
-                    });
+
+                            HashSet<IObjectViewModel> hs = new HashSet<IObjectViewModel>(Children);
+                            foreach (IObjectViewModel c in hs)
+                            {
+                                InternalChildren.Remove(c);
+                                OnChildrenChangedInternal(new ChildEventArgs<IObjectViewModel>(ChildOperation.Remove, c,
+                                    -1));
+                                c.Dispose();
+                            }
+                            foreach (IObjectViewModel a in newResetList)
+                            {
+                                InternalChildren.Add(a);
+                                OnChildrenChangedInternal(new ChildEventArgs<IObjectViewModel>(ChildOperation.Add, a,
+                                    InternalChildren.Count - 1));
+                            }
+                        });
                     break;
 
                 default:

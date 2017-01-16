@@ -66,9 +66,7 @@ namespace LogoFX.Client.Mvvm.ViewModel
         /// <summary>
         /// ObjectModel property
         /// </summary>
-#if !WinRT
         [Obsolete("Use Model instead")]
-#endif
         public  T ObjectModel
         {
             get { return (T)base.InternalModel; }
@@ -77,18 +75,11 @@ namespace LogoFX.Client.Mvvm.ViewModel
         /// <summary>
         /// Model property
         /// </summary>
-#if WinRT
-        [Obsolete("Use ObjectModel instead")]
-#endif
         public new T Model
         {
             get
             {
-#if WinRT
-                throw new NotImplementedException();
-#else
-                return (T) InternalModel;
-#endif
+                return (T)InternalModel;
             }
         }
 
