@@ -109,9 +109,6 @@
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\src\EnumViewModel.cs">
-      <Link>EnumViewModel.cs</Link>
-    </Compile>
     <Compile Include="..\src\ICollectionViewEx.cs">
       <Link>ICollectionViewEx.cs</Link>
     </Compile>
@@ -123,18 +120,6 @@
     </Compile>
     <Compile Include="..\src\ListSortDirection.cs">
       <Link>ListSortDirection.cs</Link>
-    </Compile>
-    <Compile Include="..\src\ObjectListViewModel.cs">
-      <Link>ObjectListViewModel.cs</Link>
-    </Compile>
-    <Compile Include="..\src\ObjectViewModel.cs">
-      <Link>ObjectViewModel.cs</Link>
-    </Compile>
-    <Compile Include="..\src\SelectorViewModel.cs">
-      <Link>SelectorViewModel.cs</Link>
-    </Compile>
-    <Compile Include="..\src\SimpleObjectsListViewModel.cs">
-      <Link>SimpleObjectsListViewModel.cs</Link>
     </Compile>
     <Compile Include="..\src\SortDescription.cs">
       <Link>SortDescription.cs</Link>
