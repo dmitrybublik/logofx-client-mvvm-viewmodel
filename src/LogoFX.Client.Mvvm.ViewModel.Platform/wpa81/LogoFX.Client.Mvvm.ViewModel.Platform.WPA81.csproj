@@ -106,21 +106,6 @@
     <Compile Include="..\src\SortDescription.cs">
       <Link>SortDescription.cs</Link>
     </Compile>
-    <Compile Include="..\src\WrappingCollection.cs">
-      <Link>WrappingCollection.cs</Link>
-    </Compile>
-    <Compile Include="..\src\WrappingCollection.IndexedDictionary.cs">
-      <Link>WrappingCollection.IndexedDictionary.cs</Link>
-    </Compile>
-    <Compile Include="..\src\WrappingCollection.InternalCollectionManagement.cs">
-      <Link>WrappingCollection.InternalCollectionManagement.cs</Link>
-    </Compile>
-    <Compile Include="..\src\WrappingCollection.Notifiers.cs">
-      <Link>WrappingCollection.Notifiers.cs</Link>
-    </Compile>
-    <Compile Include="..\src\WrappingCollection.WithSelection.cs">
-      <Link>WrappingCollection.WithSelection.cs</Link>
-    </Compile>
     <Compile Include="..\src\WrappingCollectionExtensions.cs">
       <Link>WrappingCollectionExtensions.cs</Link>
     </Compile>

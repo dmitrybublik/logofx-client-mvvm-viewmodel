@@ -57,32 +57,7 @@ namespace LogoFX.Client.Mvvm.ViewModel
         {
             collectionView.CustomSort = comparer;
             return collectionView;
-        }
-
-        /// <summary>
-        /// Assigns the specified data source to the specified <see cref="WrappingCollection"/>
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="collection">The specified collection.</param>
-        /// <param name="source">The source.</param>
-        /// <returns></returns>
-        /// <exception cref="System.ArgumentNullException">
-        /// collection
-        /// or
-        /// source
-        /// </exception>
-        public static T WithSource<T>(this T collection, IEnumerable source) where T : WrappingCollection
-        {
-            if (collection == null)
-                throw new ArgumentNullException("collection");
-
-            if (source == null)
-                throw new ArgumentNullException("source");
-
-            collection.AddSource(source);
-
-            return collection;
-        }
+        }        
 
 #if NET45
 /// <summary>

@@ -55,6 +55,12 @@
     <Compile Include="SimpleObjectsListViewModel.cs" />
     <Compile Include="ViewModelBase.cs" />
     <Compile Include="ViewModelCollection.cs" />
+    <Compile Include="WrappingCollection.cs" />
+    <Compile Include="WrappingCollection.IndexedDictionary.cs" />
+    <Compile Include="WrappingCollection.InternalCollectionManagement.cs" />
+    <Compile Include="WrappingCollection.Notifiers.cs" />
+    <Compile Include="WrappingCollection.WithSelection.cs" />
+    <Compile Include="WrappingCollectionExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config">
