@@ -4,10 +4,6 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
 using System.Windows.Threading;
-#if WINDOWS_UWP || NETFX_CORE
-using Windows.UI.Core;
-#endif
-using LogoFX.Client.Core;
 using LogoFX.Core;
 
 namespace LogoFX.Client.Mvvm.ViewModel
@@ -17,33 +13,6 @@ namespace LogoFX.Client.Mvvm.ViewModel
         readonly Dictionary<object, IndexedDictionary<object, object>> _dictionary = new Dictionary<object, IndexedDictionary<object, object>>();
 
         private NotifyCollectionChangedEventHandler _weakHandler = null;
-
-        private
-#if NET45
-        DispatcherPriority 
-#endif
-#if WINDOWS_UWP || NETFX_CORE
-            CoreDispatcherPriority
-#endif
-        _updatePriority = Consts.DispatcherPriority;
-        /// <summary>
-        /// Gets or sets the update priority.
-        /// </summary>
-        /// <value>
-        /// The update priority.
-        /// </value>
-        public
-#if NET45
-        DispatcherPriority 
-#endif
-#if WINDOWS_UWP || NETFX_CORE
-            CoreDispatcherPriority
-#endif
-            UpdatePriority
-        {
-            get { return _updatePriority; }
-            set { _updatePriority = value; }
-        }
 
         private object GetWrapper(object list, object model)
         {
@@ -92,7 +61,7 @@ namespace LogoFX.Client.Mvvm.ViewModel
 #if WinRT
             Dispatch.Current.OnUiThread(
 #else
-            Dispatch.Current.BeginOnUiThread(UpdatePriority,
+            Dispatch.Current.BeginOnUiThread(
 #endif
 a);
         }

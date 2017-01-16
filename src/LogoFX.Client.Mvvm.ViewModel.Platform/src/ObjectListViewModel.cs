@@ -15,10 +15,6 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Linq;
 using System.Windows.Threading;
-#if WINDOWS_UWP || NETFX_CORE
-using Windows.UI.Core;
-#endif
-using LogoFX.Client.Core;
 using LogoFX.Client.Mvvm.ViewModel.Contracts;
 using LogoFX.Core;
 
@@ -92,15 +88,6 @@ namespace LogoFX.Client.Mvvm.ViewModel
         private readonly IObjectViewModelFactory _modelfactory;
         private readonly ObservableViewModelsCollection<IObjectViewModel> _children = new ObservableViewModelsCollection<IObjectViewModel>();
         private IObjectViewModel _loadingViewModel;
-
-        private
-#if NET45
-        DispatcherPriority
-#endif
-#if WINDOWS_UWP || NETFX_CORE
-            CoreDispatcherPriority
-#endif
-            _updatePriority = Consts.DispatcherPriority;
 
         /// <summary>
         /// Occurs when content of children collection is changed.
@@ -261,7 +248,7 @@ namespace LogoFX.Client.Mvvm.ViewModel
 #if WinRT
                         Dispatch.Current.OnUiThread(
 #else
-                        Dispatch.Current.BeginOnUiThread(_updatePriority,
+                        Dispatch.Current.BeginOnUiThread(
 #endif
                         () =>
                         {
@@ -280,7 +267,7 @@ namespace LogoFX.Client.Mvvm.ViewModel
 #if WinRT
                     Dispatch.Current.OnUiThread(
 #else
-                    Dispatch.Current.BeginOnUiThread(_updatePriority,
+                    Dispatch.Current.BeginOnUiThread(
 #endif
 () =>
                     {
@@ -312,7 +299,7 @@ namespace LogoFX.Client.Mvvm.ViewModel
 #if WinRT
                     Dispatch.Current.OnUiThread(
 #else
-                    Dispatch.Current.BeginOnUiThread(_updatePriority,
+                    Dispatch.Current.BeginOnUiThread(
 #endif
 () =>
                     {
@@ -369,22 +356,6 @@ namespace LogoFX.Client.Mvvm.ViewModel
         #endregion
 
         #region Public properties
-        /// <summary>
-        /// Gets or sets the update priority.
-        /// </summary>
-        /// <value>The update priority.</value>
-        public
-#if NET45
-        DispatcherPriority 
-#endif
-#if WINDOWS_UWP || NETFX_CORE
-            CoreDispatcherPriority
-#endif
-            UpdatePriority
-        {
-            get { return _updatePriority; }
-            set { _updatePriority = value; }
-        }
 
         /// <summary>
         /// Gets the child <c>ViewModels</c> list.
