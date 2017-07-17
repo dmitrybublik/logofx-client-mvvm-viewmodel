@@ -45,11 +45,20 @@
     <Reference Include="LogoFX.Client.Mvvm.Model.Contracts, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\LogoFX.Client.Mvvm.Model.1.1.0-rc1\lib\net45\LogoFX.Client.Mvvm.Model.Contracts.dll</HintPath>
     </Reference>
+    <Reference Include="LogoFX.Client.Testing.Infra, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\LogoFX.Client.Tests.Shared.1.2.0-rc1\lib\net45\LogoFX.Client.Testing.Infra.dll</HintPath>
+    </Reference>
+    <Reference Include="LogoFX.Client.Testing.Shared, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\LogoFX.Client.Tests.Shared.1.2.0-rc1\lib\net45\LogoFX.Client.Testing.Shared.dll</HintPath>
+    </Reference>
     <Reference Include="LogoFX.Core, Version=1.0.8.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\LogoFX.Core.1.0.8-rc1\lib\net45\LogoFX.Core.dll</HintPath>
     </Reference>
     <Reference Include="Solid.Patterns.Memento, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Solid.Patterns.Memento.1.2.0-rc2\lib\net45\Solid.Patterns.Memento.dll</HintPath>
+    </Reference>
+    <Reference Include="Solid.Practices.Scheduling, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Solid.Practices.Scheduling.1.2.0-rc2\lib\net45\Solid.Practices.Scheduling.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -105,6 +114,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\LogoFX.Client.Mvvm.ViewModel.Contracts\net45\LogoFX.Client.Mvvm.ViewModel.Contracts.NET45.csproj">
+      <Project>{e9284e4f-e0c4-44fa-bc96-9aad14f71b94}</Project>
+      <Name>LogoFX.Client.Mvvm.ViewModel.Contracts.NET45</Name>
+    </ProjectReference>
     <ProjectReference Include="..\LogoFX.Client.Mvvm.ViewModel\net45\LogoFX.Client.Mvvm.ViewModel.NET45.csproj">
       <Project>{244AE8B2-82EB-432A-8B0B-B6A5CF00E234}</Project>
       <Name>LogoFX.Client.Mvvm.ViewModel.NET45</Name>
