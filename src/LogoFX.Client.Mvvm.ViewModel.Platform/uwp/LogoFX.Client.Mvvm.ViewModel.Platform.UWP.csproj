@@ -131,9 +131,9 @@
     <EmbeddedResource Include="Properties\LogoFX.Client.Mvvm.ViewModel.Platform.UWP.rd.xml" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\LogoFX.Client.Mvvm.ViewModel\portable\LogoFX.Client.Mvvm.ViewModel.csproj">
-      <Project>{83C4C216-4685-41D3-B93E-17C820724E25}</Project>
-      <Name>LogoFX.Client.Mvvm.ViewModel</Name>
+    <ProjectReference Include="..\..\LogoFX.Client.Mvvm.ViewModel\netstandard1.3\LogoFX.Client.Mvvm.ViewModel.NETStandard13.csproj">
+      <Project>{6eebb37e-317f-47eb-b7eb-09b0fbaeb266}</Project>
+      <Name>LogoFX.Client.Mvvm.ViewModel.NETStandard13</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
