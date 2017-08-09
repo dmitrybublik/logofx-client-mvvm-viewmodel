@@ -32,13 +32,11 @@
     <DocumentationFile>..\..\Bin\net45\Release\LogoFX.Client.Mvvm.ViewModel.Platform.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="LogoFX.Client.Core, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\LogoFX.Client.Core.Core.1.1.0\lib\portable-net45+wpa8+win8+MonoAndroid+MonoTouch+uap10.0\LogoFX.Client.Core.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="LogoFX.Client.Core, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\LogoFX.Client.Core.Core.1.2.0-rc1\lib\net45\LogoFX.Client.Core.dll</HintPath>
     </Reference>
-    <Reference Include="LogoFX.Core, Version=1.0.7.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\LogoFX.Core.1.0.7\lib\portable-net45+wpa8+win8+MonoAndroid+MonoTouch\LogoFX.Core.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="LogoFX.Core, Version=1.0.8.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\LogoFX.Core.1.0.8-rc1\lib\net45\LogoFX.Core.dll</HintPath>
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
@@ -58,13 +56,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\LogoFX.Client.Mvvm.ViewModel.Contracts\LogoFX.Client.Mvvm.ViewModel.Contracts.csproj">
-      <Project>{e2ffa98b-e7d6-4c7a-8b3f-fca4cecdda49}</Project>
-      <Name>LogoFX.Client.Mvvm.ViewModel.Contracts</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\LogoFX.Client.Mvvm.ViewModel\LogoFX.Client.Mvvm.ViewModel.csproj">
-      <Project>{83C4C216-4685-41D3-B93E-17C820724E25}</Project>
-      <Name>LogoFX.Client.Mvvm.ViewModel</Name>
+    <ProjectReference Include="..\..\LogoFX.Client.Mvvm.ViewModel\net45\LogoFX.Client.Mvvm.ViewModel.NET45.csproj">
+      <Project>{244ae8b2-82eb-432a-8b0b-b6a5cf00e234}</Project>
+      <Name>LogoFX.Client.Mvvm.ViewModel.NET45</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
