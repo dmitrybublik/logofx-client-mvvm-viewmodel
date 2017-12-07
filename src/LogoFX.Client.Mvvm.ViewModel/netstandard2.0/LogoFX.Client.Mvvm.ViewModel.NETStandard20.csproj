@@ -1,17 +1,14 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard1.3</TargetFramework>
+    <TargetFramework>netstandard2.0</TargetFramework>
     <AssemblyName>LogoFX.Client.Mvvm.ViewModel</AssemblyName>
     <RootNamespace>LogoFX.Client.Mvvm.ViewModel</RootNamespace>
-    <Version>1.1.0</Version>
-    <AssemblyVersion>1.1.0</AssemblyVersion>
-    <FileVersion>1.1.0</FileVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <OutputPath>..\..\Bin\netstandard1.3\Release</OutputPath>
-    <DocumentationFile>..\..\Bin\netstandard1.3\Release\netstandard1.3\LogoFX.Client.Mvvm.ViewModel.xml</DocumentationFile>
+    <OutputPath>..\..\Bin\netstandard2.0\Release</OutputPath>
+    <DocumentationFile>..\..\Bin\netstandard2.0\Release\netstandard2.0\LogoFX.Client.Mvvm.ViewModel.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
@@ -45,7 +42,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\LogoFX.Client.Mvvm.ViewModel.Contracts\netstandard1.3\LogoFX.Client.Mvvm.ViewModel.Contracts.NETStandard13.csproj" />
+    <ProjectReference Include="..\..\LogoFX.Client.Mvvm.ViewModel.Contracts\netstandard2.0\LogoFX.Client.Mvvm.ViewModel.Contracts.NETStandard20.csproj" />
   </ItemGroup>
 
 </Project>
