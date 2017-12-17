@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections;
-#if NET45
+#if NET
 using System.Windows.Data;
 #endif
 
