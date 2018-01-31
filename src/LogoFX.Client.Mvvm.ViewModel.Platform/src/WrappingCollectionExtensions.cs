@@ -59,7 +59,7 @@ namespace LogoFX.Client.Mvvm.ViewModel
             return collectionView;
         }        
 
-#if NET45
+#if NET
 /// <summary>
         /// Groups the specified collection view according to the specified property name.
         /// </summary>
