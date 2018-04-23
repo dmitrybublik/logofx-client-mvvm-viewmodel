@@ -152,7 +152,7 @@ namespace LogoFX.Client.Mvvm.ViewModel
                 {
                     if (a is INotifyPropertyChanged changed)
                         changed.PropertyChanged -= _internalSelectionHandler;
-                    Unselect(a);
+                    UnselectImpl(a);
                 }
 
                 void AddHandler(object a)
@@ -164,12 +164,12 @@ namespace LogoFX.Client.Mvvm.ViewModel
                     {
                         if (_selectionPredicate(a))
                         {
-                            Select(a);
+                            SelectImpl(a);
                         }
                     }
                     else if (_selectedItems.Count == 0 && IsSelectionRequired)
                     {
-                        Select(a);
+                        SelectImpl(a);
                     }
                 }
 
@@ -206,6 +206,15 @@ namespace LogoFX.Client.Mvvm.ViewModel
             /// <returns>old selected item if available</returns>
             public bool Select(object newSelection, bool notify = true)
             {
+                if (_selectionPredicate != null)
+                {
+                    throw new InvalidOperationException("Explicit selection status change cannot be used together with selection predicate");
+                }
+                return SelectImpl(newSelection);
+            }
+
+            private bool SelectImpl(object newSelection)
+            {
                 object item = _collectionManager.Find(newSelection);
                 if (item != null)
                 {
@@ -213,6 +222,7 @@ namespace LogoFX.Client.Mvvm.ViewModel
                 }
                 return false;
             }
+
             #endregion
 
             #region Unselect
@@ -225,6 +235,15 @@ namespace LogoFX.Client.Mvvm.ViewModel
             /// <returns><see langword="true"/> if succeeded, otherwise <see langword="false"/></returns>
             public bool Unselect(object newSelection, bool notify = true)
             {
+                if (_selectionPredicate != null)
+                {
+                    throw new InvalidOperationException("Explicit selection status change cannot be used together with selection predicate");
+                }
+                return UnselectImpl(newSelection);
+            }
+
+            private bool UnselectImpl(object newSelection)
+            {
                 if (newSelection != null)
                     return HandleItemSelectionChanged(newSelection, false);
                 return false;
@@ -235,6 +254,10 @@ namespace LogoFX.Client.Mvvm.ViewModel
             /// </summary>
             public void ClearSelection()
             {
+                if (_selectionPredicate != null)
+                {
+                    throw new InvalidOperationException("Explicit selection status change cannot be used together with selection predicate");
+                }
                 //TODO: refactor into more efficient approach
                 foreach (var selectedItem in SelectedItems.OfType<object>().ToArray())
                 {

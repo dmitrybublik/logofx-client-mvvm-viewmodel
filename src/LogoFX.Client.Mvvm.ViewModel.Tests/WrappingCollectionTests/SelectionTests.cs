@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.Linq;
 using FluentAssertions;
 using Xunit;
@@ -93,7 +94,7 @@ namespace LogoFX.Client.Mvvm.ViewModel.Tests.WrappingCollectionTests
         }
 
         [Fact]
-        public void SelectionPredicateIsSet_OriginalSourceContainsItemsThatMatchThePredicate_ItemsAreSelected()
+        public void CollectionIsCreated_SelectionPredicateIsSetAndOriginalSourceContainsItemsThatMatchThePredicate_ItemsAreSelected()
         {
             var originalDataSource =
                 new ObservableCollection<TestModel>(new[] { new TestModel(1), new TestModel(2), new TestModel(3)});
@@ -106,6 +107,34 @@ namespace LogoFX.Client.Mvvm.ViewModel.Tests.WrappingCollectionTests
             var expectedSelection = new[] { lastItem, secondItem };
             wrappingCollection.SelectedItems.Should().BeEquivalentTo(expectedSelection);
             wrappingCollection.SelectionCount.Should().Be(2);
+        }
+
+        [Fact]
+        public void Select_SelectionPredicateIsSet_ExceptionIsThrown()
+        {
+            var originalDataSource =
+                new ObservableCollection<TestModel>(new[] { new TestModel(1), new TestModel(2), new TestModel(3) });
+
+            var wrappingCollection = new WrappingCollection.WithSelection(wr => ((TestViewModel)wr).Model.Id >= 2) { FactoryMethod = o => new TestViewModel((TestModel)o) };
+            wrappingCollection.AddSource(originalDataSource);
+            var exception = Record.Exception(() => wrappingCollection.Select(wrappingCollection.SelectedItem));
+
+            exception.Should().BeOfType<InvalidOperationException>().Which.Message.Should()
+                .Be("Explicit selection status change cannot be used together with selection predicate");
+        }
+
+        [Fact]
+        public void Unselect_SelectionPredicateIsSet_ExceptionIsThrown()
+        {
+            var originalDataSource =
+                new ObservableCollection<TestModel>(new[] { new TestModel(1), new TestModel(2), new TestModel(3) });
+
+            var wrappingCollection = new WrappingCollection.WithSelection(wr => ((TestViewModel)wr).Model.Id >= 2) { FactoryMethod = o => new TestViewModel((TestModel)o) };
+            wrappingCollection.AddSource(originalDataSource);
+            var exception = Record.Exception(() => wrappingCollection.Unselect(wrappingCollection.SelectedItem));
+
+            exception.Should().BeOfType<InvalidOperationException>().Which.Message.Should()
+                .Be("Explicit selection status change cannot be used together with selection predicate");
         }
 
         private static void AssertEmptySelection(WrappingCollection.WithSelection wrappingCollection)
