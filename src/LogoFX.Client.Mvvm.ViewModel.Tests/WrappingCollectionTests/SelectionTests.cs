@@ -137,6 +137,29 @@ namespace LogoFX.Client.Mvvm.ViewModel.Tests.WrappingCollectionTests
                 .Be("Explicit selection status change cannot be used together with selection predicate");
         }
 
+        [Fact]
+        public void ModelPropertyIsChanged_SelectionPredicateIsSetAndItemDoesntMatchPredicateAfterModelChange_ItemIsUnselected()
+        {
+            var originalDataSource =
+                new ObservableCollection<TestModel>(new[]
+                {
+                    new TestModel(1) {Name = "First"},
+                    new TestModel(2) {Name = "Second"},
+                    new TestModel(3) {Name = "Third"}
+                });
+
+            var wrappingCollection = new WrappingCollection.WithSelection(wr => ((TestViewModel)wr).Model.Name.Length <= 5) { FactoryMethod = o => new TestViewModel((TestModel)o) };
+            wrappingCollection.AddSource(originalDataSource);
+            var firstItem = wrappingCollection.OfType<TestViewModel>().ElementAt(0);
+            firstItem.Model.Name = "FirstOne";
+
+            var lastItem = wrappingCollection.OfType<TestViewModel>().Last();
+            wrappingCollection.SelectedItem.Should().Be(lastItem);
+            var expectedSelection = new[] { lastItem };
+            wrappingCollection.SelectedItems.Should().BeEquivalentTo(expectedSelection);
+            wrappingCollection.SelectionCount.Should().Be(1);
+        }
+
         private static void AssertEmptySelection(WrappingCollection.WithSelection wrappingCollection)
         {
             wrappingCollection.SelectedItem.Should().BeNull();

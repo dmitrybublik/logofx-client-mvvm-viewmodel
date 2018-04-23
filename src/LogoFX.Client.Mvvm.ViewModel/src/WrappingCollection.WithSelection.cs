@@ -156,12 +156,18 @@ namespace LogoFX.Client.Mvvm.ViewModel
                 }
 
                 void AddHandler(object a)
-                {
+                {                    
                     if (a is INotifyPropertyChanged changed)
                         changed.PropertyChanged += _internalSelectionHandler;
 
                     if (_selectionPredicate != null)
                     {
+                        if (a is IModelWrapper modelWrapper &&
+                            modelWrapper.Model is INotifyPropertyChanged modelChanged)
+                        {
+                            PropertyChangedEventHandler strongHandler = ModelChangedOnPropertyChanged;
+                            modelChanged.PropertyChanged += WeakDelegate.From(strongHandler);
+                        }
                         if (_selectionPredicate(a))
                         {
                             SelectImpl(a);
@@ -170,6 +176,18 @@ namespace LogoFX.Client.Mvvm.ViewModel
                     else if (_selectedItems.Count == 0 && IsSelectionRequired)
                     {
                         SelectImpl(a);
+                    }
+
+                    void ModelChangedOnPropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
+                    {
+                        if (_selectionPredicate(a))
+                        {
+                            SelectImpl(a);
+                        }
+                        else
+                        {
+                            UnselectImpl(a);
+                        }
                     }
                 }
 
@@ -193,7 +211,8 @@ namespace LogoFX.Client.Mvvm.ViewModel
 
                 }
                 base.OnCollectionChanged(e);
-            }
+            }            
+
             #endregion
 
             #region Select
@@ -201,21 +220,21 @@ namespace LogoFX.Client.Mvvm.ViewModel
             /// <summary>
             /// Selection operation
             /// </summary>
-            /// <param name="newSelection">item to select </param>
+            /// <param name="itemsToSelect">item to select </param>
             /// <param name="notify"></param>
             /// <returns>old selected item if available</returns>
-            public bool Select(object newSelection, bool notify = true)
+            public bool Select(object itemsToSelect, bool notify = true)
             {
                 if (_selectionPredicate != null)
                 {
                     throw new InvalidOperationException("Explicit selection status change cannot be used together with selection predicate");
                 }
-                return SelectImpl(newSelection);
+                return SelectImpl(itemsToSelect);
             }
 
-            private bool SelectImpl(object newSelection)
+            private bool SelectImpl(object itemsToSelect)
             {
-                object item = _collectionManager.Find(newSelection);
+                object item = _collectionManager.Find(itemsToSelect);
                 if (item != null)
                 {
                     return HandleItemSelectionChanged(item, true);
@@ -230,22 +249,22 @@ namespace LogoFX.Client.Mvvm.ViewModel
             /// <summary>
             /// Un-selects object
             /// </summary>
-            /// <param name="newSelection"></param>
+            /// <param name="itemsToUnselect"></param>
             /// <param name="notify"></param>
             /// <returns><see langword="true"/> if succeeded, otherwise <see langword="false"/></returns>
-            public bool Unselect(object newSelection, bool notify = true)
+            public bool Unselect(object itemsToUnselect, bool notify = true)
             {
                 if (_selectionPredicate != null)
                 {
                     throw new InvalidOperationException("Explicit selection status change cannot be used together with selection predicate");
                 }
-                return UnselectImpl(newSelection);
+                return UnselectImpl(itemsToUnselect);
             }
 
-            private bool UnselectImpl(object newSelection)
+            private bool UnselectImpl(object itemsToUnselect)
             {
-                if (newSelection != null)
-                    return HandleItemSelectionChanged(newSelection, false);
+                if (itemsToUnselect != null)
+                    return HandleItemSelectionChanged(itemsToUnselect, false);
                 return false;
             }
 

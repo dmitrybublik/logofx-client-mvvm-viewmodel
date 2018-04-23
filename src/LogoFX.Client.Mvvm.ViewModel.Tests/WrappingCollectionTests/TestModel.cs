@@ -6,7 +6,7 @@ namespace LogoFX.Client.Mvvm.ViewModel.Tests.WrappingCollectionTests
     {
         public TestModel(int id)
         {
-            Id = id;
+            Id = id;            
         }        
 
         public override int GetHashCode()
