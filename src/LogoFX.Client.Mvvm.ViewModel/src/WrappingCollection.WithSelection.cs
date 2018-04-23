@@ -148,13 +148,14 @@ namespace LogoFX.Client.Mvvm.ViewModel
                 if (_internalSelectionHandler == null)
                     _internalSelectionHandler = WeakDelegate.From(InternalIsSelectedChanged);
 
-                Action<object> RemoveHandler = a =>
+                void RemoveHandler(object a)
                 {
                     if (a is INotifyPropertyChanged changed)
                         changed.PropertyChanged -= _internalSelectionHandler;
                     Unselect(a);
-                };
-                Action<object> AddHandler = a =>
+                }
+
+                void AddHandler(object a)
                 {
                     if (a is INotifyPropertyChanged changed)
                         changed.PropertyChanged += _internalSelectionHandler;
@@ -169,8 +170,8 @@ namespace LogoFX.Client.Mvvm.ViewModel
                     else if (_selectedItems.Count == 0 && IsSelectionRequired)
                     {
                         Select(a);
-                    }                                        
-                };
+                    }
+                }
 
                 switch (e.Action)
                 {
