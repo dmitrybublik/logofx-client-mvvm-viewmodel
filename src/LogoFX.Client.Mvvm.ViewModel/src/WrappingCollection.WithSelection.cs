@@ -25,8 +25,7 @@ namespace LogoFX.Client.Mvvm.ViewModel
             private const uint RequiredSelectionMask = (uint)(SelectionMode.OneOrMore | SelectionMode.One);
             private const SelectionMode DefaultSelectionMode = SelectionMode.ZeroOrMore;
             private readonly ReentranceGuard _selectionManagement = new ReentranceGuard();
-            private readonly SelectionMode _selectionMode;
-            private readonly Predicate<object> _selectionPredicate;
+            private readonly SelectionMode _selectionMode;            
             private EventHandler<SelectionChangingEventArgs> _currentHandler;
             private Action<object, SelectionChangingEventArgs> _selectionHandler;
             private PropertyChangedEventHandler _internalSelectionHandler;
@@ -277,10 +276,15 @@ namespace LogoFX.Client.Mvvm.ViewModel
                 {
                     throw new InvalidOperationException("Explicit selection status change cannot be used together with selection predicate");
                 }
+                ClearSelectionImpl();
+            }
+
+            private void ClearSelectionImpl()
+            {
                 //TODO: refactor into more efficient approach
                 foreach (var selectedItem in SelectedItems.OfType<object>().ToArray())
                 {
-                    Unselect(selectedItem);
+                    UnselectImpl(selectedItem);
                 }
             }
 
@@ -328,6 +332,27 @@ namespace LogoFX.Client.Mvvm.ViewModel
             /// Selected items
             /// </summary>
             public IEnumerable SelectedItems => _selectedItems;
+
+            private Predicate<object> _selectionPredicate;
+            public Predicate<object> SelectionPredicate
+            {
+                get => _selectionPredicate;
+                set
+                {
+                    _selectionPredicate = value;
+                    ClearSelectionImpl();
+                    if (_selectionPredicate != null)
+                    {                        
+                        foreach (var item in _collectionManager)
+                        {                            
+                            if (_selectionPredicate(item))
+                            {
+                                SelectImpl(item);
+                            }
+                        }                        
+                    }                    
+                }
+            }
 
             /// <summary>
             /// Occurs when selection is changed.

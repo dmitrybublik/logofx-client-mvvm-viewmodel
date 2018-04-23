@@ -160,6 +160,29 @@ namespace LogoFX.Client.Mvvm.ViewModel.Tests.WrappingCollectionTests
             wrappingCollection.SelectionCount.Should().Be(1);
         }
 
+        [Fact]
+        public void
+            SelectionPredicateIsSet_SelectionPredicateWasSetInitiallyAndItemDoesnMatchTheNewPredicate_SelectionChanges()
+        {
+            var originalDataSource =
+                new ObservableCollection<TestModel>(new[]
+                {
+                    new TestModel(1) {Name = "First"},
+                    new TestModel(2) {Name = "Second"},
+                    new TestModel(3) {Name = "Third"}
+                });
+
+            var wrappingCollection = new WrappingCollection.WithSelection(wr => ((TestViewModel)wr).Model.Name.Length <= 5) { FactoryMethod = o => new TestViewModel((TestModel)o) };
+            wrappingCollection.AddSource(originalDataSource);
+            wrappingCollection.SelectionPredicate = wr => ((TestViewModel)wr).Model.Name.Length == 6;
+
+            var secondItem = wrappingCollection.OfType<TestViewModel>().ElementAt(1);
+            wrappingCollection.SelectedItem.Should().Be(secondItem);
+            var expectedSelection = new[] { secondItem };
+            wrappingCollection.SelectedItems.Should().BeEquivalentTo(expectedSelection);
+            wrappingCollection.SelectionCount.Should().Be(1);
+        }
+
         private static void AssertEmptySelection(WrappingCollection.WithSelection wrappingCollection)
         {
             wrappingCollection.SelectedItem.Should().BeNull();
