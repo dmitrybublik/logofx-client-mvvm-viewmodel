@@ -13,6 +13,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="IHaveSelectionPredicate.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Include="..\src\ICanBeBusy.cs" Link="ICanBeBusy.cs" />
     <Compile Include="..\src\ICurrent.cs" Link="ICurrent.cs" />
     <Compile Include="..\src\IEditableViewModel.cs" Link="IEditableViewModel.cs" />
@@ -21,6 +25,7 @@
     <Compile Include="..\src\IHaveLoadingViewModel.cs" Link="IHaveLoadingViewModel.cs" />
     <Compile Include="..\src\IHaveSelectedItem.cs" Link="IHaveSelectedItem.cs" />
     <Compile Include="..\src\IHaveSelectedItems.cs" Link="IHaveSelectedItems.cs" />
+    <Compile Include="..\src\IHaveSelectionPredicate.cs" Link="IHaveSelectionPredicate.cs" />
     <Compile Include="..\src\IHierarсhicalViewModel.cs" Link="IHierarсhicalViewModel.cs" />
     <Compile Include="..\src\IModelWrapper.cs" Link="IModelWrapper.cs" />
     <Compile Include="..\src\INotifySelectionChanged.cs" Link="INotifySelectionChanged.cs" />
