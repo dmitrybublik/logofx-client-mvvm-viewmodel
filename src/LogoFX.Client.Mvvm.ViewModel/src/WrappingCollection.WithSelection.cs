@@ -26,6 +26,7 @@ namespace LogoFX.Client.Mvvm.ViewModel
             private const SelectionMode DefaultSelectionMode = SelectionMode.ZeroOrMore;
             private readonly ReentranceGuard _selectionManagement = new ReentranceGuard();
             private readonly SelectionMode _selectionMode;
+            private readonly Predicate<object> _selectionPredicate;
             private EventHandler<SelectionChangingEventArgs> _currentHandler;
             private Action<object, SelectionChangingEventArgs> _selectionHandler;
             private PropertyChangedEventHandler _internalSelectionHandler;
@@ -42,12 +43,24 @@ namespace LogoFX.Client.Mvvm.ViewModel
             /// <summary>
             /// Initializes a new instance of the <see cref="WrappingCollection.WithSelection"/> class.
             /// </summary>
-            /// <param name="selectionMode">The selection mode.</param>
-            /// <param name="isBulk">if set to <c>true</c> [is bulk].</param>
+            /// <param name="selectionMode">The selection mode. Cannot be used together with selection predicate.</param>
+            /// <param name="isBulk">if set to <c>true</c> uses bulk operations mode.</param>
             public WithSelection(SelectionMode selectionMode = DefaultSelectionMode, bool isBulk = false)
                 : base(isBulk)
             {
                 _selectionMode = selectionMode;
+                _selectedItems.CollectionChanged += (a, b) => OnSelectionChanged();
+            }
+
+            /// <summary>
+            /// Initializes a new instance of the <see cref="WrappingCollection.WithSelection"/> class.
+            /// </summary>
+            /// <param name="selectionPredicate">The selection predicate. Cannot be used together with selection mode.</param>
+            /// <param name="isBulk">if set to <c>true</c> uses bulk operations mode.</param>
+            public WithSelection(Predicate<object> selectionPredicate = null, bool isBulk = false)
+                : base(isBulk)
+            {
+                _selectionPredicate = selectionPredicate;
                 _selectedItems.CollectionChanged += (a, b) => OnSelectionChanged();
             }
 
@@ -70,14 +83,14 @@ namespace LogoFX.Client.Mvvm.ViewModel
                     if (args.Cancel)
                     {
                         //cancel selection change
-                        if (obj is ISelectable)
-                            ((ISelectable)obj).IsSelected = !isSelecting;
+                        if (obj is ISelectable selectable)
+                            selectable.IsSelected = !isSelecting;
                         return false;
                     }
 
                     if (isSelecting)
                     {
-                        if (((uint)_selectionMode & SingleSelectionMask) != 0)
+                        if (_selectionPredicate == null && ((uint)_selectionMode & SingleSelectionMask) != 0)
                         {
                             _selectedItems.ForEach(a =>
                             {
@@ -87,20 +100,20 @@ namespace LogoFX.Client.Mvvm.ViewModel
                             _selectedItems.Clear();
                         }
                         _selectedItems.Add(obj);
-                        if (obj is ISelectable)
-                            ((ISelectable)obj).IsSelected = true;
+                        if (obj is ISelectable selectable)
+                            selectable.IsSelected = true;
                     }
                     else
                     {
                         _selectedItems.Remove(obj);
-                        if (obj is ISelectable)
-                            ((ISelectable)obj).IsSelected = false;
+                        if (obj is ISelectable selectable)
+                            selectable.IsSelected = false;
 
-                        if (IsSelectionRequired && _selectedItems.Count == 0 && _collectionManager.ItemsCount > 0)
+                        if (_selectionPredicate == null && IsSelectionRequired && _selectedItems.Count == 0 && _collectionManager.ItemsCount > 0)
                         {
                             _selectedItems.Add(_collectionManager.First());
-                            if (obj is ISelectable)
-                                ((ISelectable)obj).IsSelected = true;
+                            if (obj is ISelectable selectable1)
+                                selectable1.IsSelected = true;
                         }
                     }
 
@@ -120,10 +133,8 @@ namespace LogoFX.Client.Mvvm.ViewModel
                     Dispatch.Current.OnUiThread(() => HandleItemSelectionChanged(o, ((ISelectable)o).IsSelected));
             }
 
-            private bool IsSelectionRequired
-            {
-                get { return ((uint)_selectionMode & RequiredSelectionMask) != 0; }
-            }
+            private bool IsSelectionRequired => ((uint)_selectionMode & RequiredSelectionMask) != 0;
+
             #endregion
 
             #region overrides
@@ -137,21 +148,28 @@ namespace LogoFX.Client.Mvvm.ViewModel
                 if (_internalSelectionHandler == null)
                     _internalSelectionHandler = WeakDelegate.From(InternalIsSelectedChanged);
 
-                Action<object> RemoveHandler = (a) =>
+                Action<object> RemoveHandler = a =>
                 {
-                    if (a is INotifyPropertyChanged)
-                        ((INotifyPropertyChanged)a).PropertyChanged -= _internalSelectionHandler;
+                    if (a is INotifyPropertyChanged changed)
+                        changed.PropertyChanged -= _internalSelectionHandler;
                     Unselect(a);
                 };
-                Action<object> AddHandler = (a) =>
+                Action<object> AddHandler = a =>
                 {
-                    if (a is INotifyPropertyChanged)
-                        ((INotifyPropertyChanged)a).PropertyChanged += _internalSelectionHandler;
+                    if (a is INotifyPropertyChanged changed)
+                        changed.PropertyChanged += _internalSelectionHandler;
 
-                    if (_selectedItems.Count == 0 && IsSelectionRequired)
+                    if (_selectionPredicate != null)
+                    {
+                        if (_selectionPredicate(a))
+                        {
+                            Select(a);
+                        }
+                    }
+                    else if (_selectedItems.Count == 0 && IsSelectionRequired)
                     {
                         Select(a);
-                    }
+                    }                                        
                 };
 
                 switch (e.Action)
@@ -240,7 +258,7 @@ namespace LogoFX.Client.Mvvm.ViewModel
             /// </value>
             public Action<object, SelectionChangingEventArgs> SelectionHandler
             {
-                get { return _selectionHandler; }
+                get => _selectionHandler;
                 set
                 {
                     if (_currentHandler != null)
@@ -253,10 +271,7 @@ namespace LogoFX.Client.Mvvm.ViewModel
             /// <summary>
             /// Selected item
             /// </summary>
-            public object SelectedItem
-            {
-                get { return _selectedItems.Count > 0 ? _selectedItems[0] : null; }
-            }
+            public object SelectedItem => _selectedItems.Count > 0 ? _selectedItems[0] : null;
 
             /// <summary>
             /// Gets the selection count.
@@ -264,18 +279,12 @@ namespace LogoFX.Client.Mvvm.ViewModel
             /// <value>
             /// The selection count.
             /// </value>
-            public int SelectionCount
-            {
-                get { return _selectedItems == null ? 0 :_selectedItems.Count; }
-            }
+            public int SelectionCount => _selectedItems?.Count ?? 0;
 
             /// <summary>
             /// Selected items
             /// </summary>
-            public IEnumerable SelectedItems
-            {
-                get { return _selectedItems; }
-            }
+            public IEnumerable SelectedItems => _selectedItems;
 
             /// <summary>
             /// Occurs when selection is changed.
@@ -289,7 +298,7 @@ namespace LogoFX.Client.Mvvm.ViewModel
             protected void InvokeSelectionChanged(EventArgs e)
             {
                 EventHandler handler = SelectionChanged;
-                if (handler != null) handler(this, e);
+                handler?.Invoke(this, e);
             }
 
             /// <summary>
@@ -304,7 +313,7 @@ namespace LogoFX.Client.Mvvm.ViewModel
             protected void InvokeSelectionChanging(SelectionChangingEventArgs e)
             {
                 EventHandler<SelectionChangingEventArgs> handler = SelectionChanging;
-                if (handler != null) handler(this, e);
+                handler?.Invoke(this, e);
             }
 
             #region Implementation of INotifyPropertyChanged
@@ -321,7 +330,7 @@ namespace LogoFX.Client.Mvvm.ViewModel
             protected void OnPropertyChanged(string p)
             {
                 PropertyChangedEventHandler handler = PropertyChanged;
-                if (handler != null) handler(this, new PropertyChangedEventArgs(p));
+                handler?.Invoke(this, new PropertyChangedEventArgs(p));
             }
 
             #endregion

@@ -4,8 +4,7 @@ using FluentAssertions;
 using Xunit;
 
 namespace LogoFX.Client.Mvvm.ViewModel.Tests.WrappingCollectionTests
-{    
-    
+{        
     public class SelectionTests : WrappingCollectionTestsBase
     {
         [Fact]
@@ -91,6 +90,22 @@ namespace LogoFX.Client.Mvvm.ViewModel.Tests.WrappingCollectionTests
             wrappingCollection.ClearSelection();
 
             AssertEmptySelection(wrappingCollection);
+        }
+
+        [Fact]
+        public void SelectionPredicateIsSet_OriginalSourceContainsItemsThatMatchThePredicate_ItemsAreSelected()
+        {
+            var originalDataSource =
+                new ObservableCollection<TestModel>(new[] { new TestModel(1), new TestModel(2), new TestModel(3)});
+
+            var wrappingCollection = new WrappingCollection.WithSelection(wr => ((TestViewModel) wr).Model.Id >= 2) { FactoryMethod = o => new TestViewModel((TestModel)o) };
+            wrappingCollection.AddSource(originalDataSource);
+            var secondItem = wrappingCollection.OfType<TestViewModel>().ElementAt(1);
+            var lastItem = wrappingCollection.OfType<TestViewModel>().Last();
+            wrappingCollection.SelectedItem.Should().Be(secondItem);
+            var expectedSelection = new[] { lastItem, secondItem };
+            wrappingCollection.SelectedItems.Should().BeEquivalentTo(expectedSelection);
+            wrappingCollection.SelectionCount.Should().Be(2);
         }
 
         private static void AssertEmptySelection(WrappingCollection.WithSelection wrappingCollection)
