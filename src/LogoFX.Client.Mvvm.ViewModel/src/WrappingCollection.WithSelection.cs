@@ -89,30 +89,19 @@ namespace LogoFX.Client.Mvvm.ViewModel
 
                     if (isSelecting)
                     {
-                        if (_selectionPredicate == null && ((uint)_selectionMode & SingleSelectionMask) != 0)
+                        if (_selectionPredicate == null && ((uint)_selectionMode & SingleSelectionMask) != 0 && _selectedItems.Count > 0)
                         {
-                            _selectedItems.ForEach(a =>
-                            {
-                                if (a is ISelectable)
-                                    ((ISelectable)obj).IsSelected = false;
-                            });
-                            _selectedItems.Clear();
+                            UnselectItemInternal(_selectedItems.Single());
                         }
-                        _selectedItems.Add(obj);
-                        if (obj is ISelectable selectable)
-                            selectable.IsSelected = true;
+                        SelectItemInternal(obj);
                     }
                     else
                     {
-                        _selectedItems.Remove(obj);
-                        if (obj is ISelectable selectable)
-                            selectable.IsSelected = false;
-
+                        UnselectItemInternal(obj);
                         if (_selectionPredicate == null && IsSelectionRequired && _selectedItems.Count == 0 && _collectionManager.ItemsCount > 0)
                         {
-                            _selectedItems.Add(_collectionManager.First());
-                            if (obj is ISelectable selectable1)
-                                selectable1.IsSelected = true;
+                            var match = _collectionManager.First();
+                            SelectItemInternal(match);
                         }
                     }
 
@@ -122,6 +111,24 @@ namespace LogoFX.Client.Mvvm.ViewModel
                     OnPropertyChanged("SelectionCount");
                     return true;
                 }
+            }
+
+            private void SelectItemInternal(object obj)
+            {
+                _selectedItems.Add(obj);
+                SetIsSelected(obj, true);
+            }
+
+            private void UnselectItemInternal(object obj)
+            {
+                _selectedItems.Remove(obj);
+                SetIsSelected(obj, false);
+            }
+
+            private static void SetIsSelected(object obj, bool isSelecting)
+            {
+                if (obj is ISelectable selectable)
+                    selectable.IsSelected = isSelecting;
             }
 
             private void InternalIsSelectedChanged(object o, PropertyChangedEventArgs args)

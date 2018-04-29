@@ -46,7 +46,7 @@ namespace LogoFX.Client.Mvvm.ViewModel.Tests.WrappingCollectionTests
             wrappingCollection.SelectionCount.Should().Be(2);            
         }
 
-        //TODO: causing stack overflow - check after model package update      
+        //TODO: causing stack overflow - check after model package update  
         void Selection_SelectionModeIsSingleItemIsSelectedAndAnotherItemIsSelected_OnlySecondItemIsSelected()
         {
             var originalDataSource =
