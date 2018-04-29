@@ -248,22 +248,22 @@ namespace LogoFX.Client.Mvvm.ViewModel
             /// <summary>
             /// Un-selects object
             /// </summary>
-            /// <param name="itemsToUnselect"></param>
+            /// <param name="item"></param>
             /// <param name="notify"></param>
             /// <returns><see langword="true"/> if succeeded, otherwise <see langword="false"/></returns>
-            public bool Unselect(object itemsToUnselect, bool notify = true)
+            public bool Unselect(object item, bool notify = true)
             {
                 if (_selectionPredicate != null)
                 {
                     throw new InvalidOperationException("Explicit selection status change cannot be used together with selection predicate");
                 }
-                return UnselectImpl(itemsToUnselect);
+                return UnselectImpl(item);
             }
 
-            private bool UnselectImpl(object itemsToUnselect)
+            private bool UnselectImpl(object item)
             {
-                if (itemsToUnselect != null)
-                    return HandleItemSelectionChanged(itemsToUnselect, false);
+                if (item != null)
+                    return HandleItemSelectionChanged(item, false);
                 return false;
             }
 
