@@ -47,6 +47,7 @@ namespace LogoFX.Client.Mvvm.ViewModel.Tests.WrappingCollectionTests
         }
 
         //TODO: causing stack overflow - check after model package update  
+        [Fact]
         void Selection_SelectionModeIsSingleItemIsSelectedAndAnotherItemIsSelected_OnlySecondItemIsSelected()
         {
             var originalDataSource =
@@ -60,7 +61,7 @@ namespace LogoFX.Client.Mvvm.ViewModel.Tests.WrappingCollectionTests
             wrappingCollection.Select(secondItem);
 
             wrappingCollection.SelectedItem.Should().Be(secondItem);
-            var expectedSelection = new[] { firstItem, secondItem };
+            var expectedSelection = new[] { secondItem };
             wrappingCollection.SelectedItems.Should().BeEquivalentTo(expectedSelection);
             wrappingCollection.SelectionCount.Should().Be(1);
         }
