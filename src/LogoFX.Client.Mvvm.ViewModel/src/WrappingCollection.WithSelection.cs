@@ -82,9 +82,7 @@ namespace LogoFX.Client.Mvvm.ViewModel
                     if (args.Cancel)
                     {
                         //cancel selection change
-                        if (obj is ISelectable selectable)
-                            selectable.IsSelected = !isSelecting;
-                        return false;
+                        SetIsSelected(obj, !isSelecting);
                     }
 
                     if (isSelecting)
