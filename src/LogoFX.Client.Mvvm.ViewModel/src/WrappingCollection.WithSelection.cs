@@ -219,22 +219,21 @@ namespace LogoFX.Client.Mvvm.ViewModel
             /// <summary>
             /// Selection operation
             /// </summary>
-            /// <param name="itemsToSelect">item to select </param>
+            /// <param name="item">item to select </param>
             /// <param name="notify"></param>
             /// <returns>old selected item if available</returns>
-            public bool Select(object itemsToSelect, bool notify = true)
+            public bool Select(object item, bool notify = true)
             {
                 if (_selectionPredicate != null)
                 {
                     throw new InvalidOperationException("Explicit selection status change cannot be used together with selection predicate");
                 }
-                return SelectImpl(itemsToSelect);
+                return SelectImpl(item);
             }
 
-            private bool SelectImpl(object itemsToSelect)
+            private bool SelectImpl(object item)
             {
-                object item = _collectionManager.Find(itemsToSelect);
-                if (item != null)
+                if (_collectionManager.Contains(item))
                 {
                     return HandleItemSelectionChanged(item, true);
                 }
