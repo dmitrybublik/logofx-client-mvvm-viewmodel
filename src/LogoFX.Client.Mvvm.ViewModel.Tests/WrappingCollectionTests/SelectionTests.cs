@@ -14,8 +14,9 @@ namespace LogoFX.Client.Mvvm.ViewModel.Tests.WrappingCollectionTests
             var originalDataSource =
                 new ObservableCollection<TestModel>(new[] { new TestModel(1), new TestModel(2), new TestModel(3) });
 
-            var wrappingCollection = new WrappingCollection.WithSelection { FactoryMethod = o => new TestViewModel((TestModel)o) };
-            wrappingCollection.AddSource(originalDataSource);
+            var wrappingCollection =
+                new WrappingCollection.WithSelection {FactoryMethod = o => new TestViewModel((TestModel) o)}.WithSource(
+                    originalDataSource);
             var firstItem = wrappingCollection.OfType<TestViewModel>().First();
             wrappingCollection.Select(firstItem);
             wrappingCollection.Unselect(firstItem);
@@ -29,8 +30,11 @@ namespace LogoFX.Client.Mvvm.ViewModel.Tests.WrappingCollectionTests
             var originalDataSource =
                 new ObservableCollection<TestModel>(new[] { new TestModel(1), new TestModel(2), new TestModel(3) });
 
-            var wrappingCollection = new WrappingCollection.WithSelection(SelectionMode.ZeroOrMore) { FactoryMethod = o => new TestViewModel((TestModel)o) };
-            wrappingCollection.AddSource(originalDataSource);
+            var wrappingCollection =
+                new WrappingCollection.WithSelection(SelectionMode.ZeroOrMore)
+                {
+                    FactoryMethod = o => new TestViewModel((TestModel) o)
+                }.WithSource(originalDataSource);
             var firstItem = wrappingCollection.OfType<TestViewModel>().First();
             var secondItem = wrappingCollection.OfType<TestViewModel>().Skip(1).First();
             wrappingCollection.Select(firstItem);
@@ -67,8 +71,11 @@ namespace LogoFX.Client.Mvvm.ViewModel.Tests.WrappingCollectionTests
             var originalDataSource =
                 new ObservableCollection<TestModel>(new[] { new TestModel(1), new TestModel(2), new TestModel(3) });
 
-            var wrappingCollection = new WrappingCollection.WithSelection(SelectionMode.ZeroOrMore) { FactoryMethod = o => new TestViewModel((TestModel)o) };
-            wrappingCollection.AddSource(originalDataSource);
+            var wrappingCollection =
+                new WrappingCollection.WithSelection(SelectionMode.ZeroOrMore)
+                {
+                    FactoryMethod = o => new TestViewModel((TestModel) o)
+                }.WithSource(originalDataSource);
             var firstItem = wrappingCollection.OfType<TestViewModel>().First();            
             wrappingCollection.Select(firstItem);
             originalDataSource.RemoveAt(0);
@@ -82,8 +89,11 @@ namespace LogoFX.Client.Mvvm.ViewModel.Tests.WrappingCollectionTests
             var originalDataSource =
                             new ObservableCollection<TestModel>(new[] { new TestModel(1), new TestModel(2), new TestModel(3) });
 
-            var wrappingCollection = new WrappingCollection.WithSelection(SelectionMode.ZeroOrMore) { FactoryMethod = o => new TestViewModel((TestModel)o) };
-            wrappingCollection.AddSource(originalDataSource);
+            var wrappingCollection =
+                new WrappingCollection.WithSelection(SelectionMode.ZeroOrMore)
+                {
+                    FactoryMethod = o => new TestViewModel((TestModel) o)
+                }.WithSource(originalDataSource);
             var firstItem = wrappingCollection.OfType<TestViewModel>().First();
             wrappingCollection.Select(firstItem);
             var secondItem = wrappingCollection.OfType<TestViewModel>().Skip(1).First();
@@ -99,8 +109,11 @@ namespace LogoFX.Client.Mvvm.ViewModel.Tests.WrappingCollectionTests
             var originalDataSource =
                 new ObservableCollection<TestModel>(new[] { new TestModel(1), new TestModel(2), new TestModel(3)});
 
-            var wrappingCollection = new WrappingCollection.WithSelection(wr => ((TestViewModel) wr).Model.Id >= 2) { FactoryMethod = o => new TestViewModel((TestModel)o) };
-            wrappingCollection.AddSource(originalDataSource);
+            var wrappingCollection =
+                new WrappingCollection.WithSelection(wr => ((TestViewModel) wr).Model.Id >= 2)
+                {
+                    FactoryMethod = o => new TestViewModel((TestModel) o)
+                }.WithSource(originalDataSource);
             var secondItem = wrappingCollection.OfType<TestViewModel>().ElementAt(1);
             var lastItem = wrappingCollection.OfType<TestViewModel>().Last();
             wrappingCollection.SelectedItem.Should().Be(secondItem);
@@ -115,8 +128,11 @@ namespace LogoFX.Client.Mvvm.ViewModel.Tests.WrappingCollectionTests
             var originalDataSource =
                 new ObservableCollection<TestModel>(new[] { new TestModel(1), new TestModel(2), new TestModel(3) });
 
-            var wrappingCollection = new WrappingCollection.WithSelection(wr => ((TestViewModel)wr).Model.Id >= 2) { FactoryMethod = o => new TestViewModel((TestModel)o) };
-            wrappingCollection.AddSource(originalDataSource);
+            var wrappingCollection =
+                new WrappingCollection.WithSelection(wr => ((TestViewModel) wr).Model.Id >= 2)
+                {
+                    FactoryMethod = o => new TestViewModel((TestModel) o)
+                }.WithSource(originalDataSource);
             var exception = Record.Exception(() => wrappingCollection.Select(wrappingCollection.SelectedItem));
 
             exception.Should().BeOfType<InvalidOperationException>().Which.Message.Should()
@@ -129,8 +145,11 @@ namespace LogoFX.Client.Mvvm.ViewModel.Tests.WrappingCollectionTests
             var originalDataSource =
                 new ObservableCollection<TestModel>(new[] { new TestModel(1), new TestModel(2), new TestModel(3) });
 
-            var wrappingCollection = new WrappingCollection.WithSelection(wr => ((TestViewModel)wr).Model.Id >= 2) { FactoryMethod = o => new TestViewModel((TestModel)o) };
-            wrappingCollection.AddSource(originalDataSource);
+            var wrappingCollection =
+                new WrappingCollection.WithSelection(wr => ((TestViewModel) wr).Model.Id >= 2)
+                {
+                    FactoryMethod = o => new TestViewModel((TestModel) o)
+                }.WithSource(originalDataSource);
             var exception = Record.Exception(() => wrappingCollection.Unselect(wrappingCollection.SelectedItem));
 
             exception.Should().BeOfType<InvalidOperationException>().Which.Message.Should()
@@ -148,8 +167,11 @@ namespace LogoFX.Client.Mvvm.ViewModel.Tests.WrappingCollectionTests
                     new TestModel(3) {Name = "Third"}
                 });
 
-            var wrappingCollection = new WrappingCollection.WithSelection(wr => ((TestViewModel)wr).Model.Name.Length <= 5) { FactoryMethod = o => new TestViewModel((TestModel)o) };
-            wrappingCollection.AddSource(originalDataSource);
+            var wrappingCollection =
+                new WrappingCollection.WithSelection(wr => ((TestViewModel) wr).Model.Name.Length <= 5)
+                {
+                    FactoryMethod = o => new TestViewModel((TestModel) o)
+                }.WithSource(originalDataSource);
             var firstItem = wrappingCollection.OfType<TestViewModel>().ElementAt(0);
             firstItem.Model.Name = "FirstOne";
 
@@ -172,8 +194,11 @@ namespace LogoFX.Client.Mvvm.ViewModel.Tests.WrappingCollectionTests
                     new TestModel(3) {Name = "Third"}
                 });
 
-            var wrappingCollection = new WrappingCollection.WithSelection(wr => ((TestViewModel)wr).Model.Name.Length <= 5) { FactoryMethod = o => new TestViewModel((TestModel)o) };
-            wrappingCollection.AddSource(originalDataSource);
+            var wrappingCollection =
+                new WrappingCollection.WithSelection(wr => ((TestViewModel) wr).Model.Name.Length <= 5)
+                {
+                    FactoryMethod = o => new TestViewModel((TestModel) o)
+                }.WithSource(originalDataSource);
             wrappingCollection.SelectionPredicate = wr => ((TestViewModel)wr).Model.Name.Length == 6;
 
             var secondItem = wrappingCollection.OfType<TestViewModel>().ElementAt(1);
