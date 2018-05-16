@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
@@ -143,6 +144,20 @@ namespace LogoFX.Client.Mvvm.ViewModel
 
             #region overrides
 
+            protected override void OnBeforeClear(IEnumerable<object> items)
+            {
+                void RemoveHandler(object a)
+                {
+                    if (a is INotifyPropertyChanged changed)
+                    {
+                        changed.PropertyChanged -= _internalSelectionHandler;
+                    }
+                    UnselectImpl(a);
+                }
+
+                items.ForEach(RemoveHandler);
+            }
+
             /// <summary>
             /// Override this method to inject custom logic on collection change.
             /// </summary>
@@ -150,19 +165,37 @@ namespace LogoFX.Client.Mvvm.ViewModel
             protected override void OnCollectionChanged(NotifyCollectionChangedEventArgs e)
             {
                 if (_internalSelectionHandler == null)
+                {
                     _internalSelectionHandler = WeakDelegate.From(InternalIsSelectedChanged);
+                }
 
                 void RemoveHandler(object a)
                 {
                     if (a is INotifyPropertyChanged changed)
+                    {
                         changed.PropertyChanged -= _internalSelectionHandler;
+                    }
                     UnselectImpl(a);
                 }
 
                 void AddHandler(object a)
-                {                    
+                {
+                    void ModelChangedOnPropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
+                    {
+                        if (_selectionPredicate(a))
+                        {
+                            SelectImpl(a);
+                        }
+                        else
+                        {
+                            UnselectImpl(a);
+                        }
+                    }
+
                     if (a is INotifyPropertyChanged changed)
+                    {
                         changed.PropertyChanged += _internalSelectionHandler;
+                    }
 
                     if (_selectionPredicate != null)
                     {
@@ -181,18 +214,6 @@ namespace LogoFX.Client.Mvvm.ViewModel
                     {
                         SelectImpl(a);
                     }
-
-                    void ModelChangedOnPropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
-                    {
-                        if (_selectionPredicate(a))
-                        {
-                            SelectImpl(a);
-                        }
-                        else
-                        {
-                            UnselectImpl(a);
-                        }
-                    }
                 }
 
                 switch (e.Action)
@@ -208,12 +229,12 @@ namespace LogoFX.Client.Mvvm.ViewModel
                         e.NewItems.Cast<object>().ForEach(AddHandler);
                         break;
                     case NotifyCollectionChangedAction.Reset:
-                        Debug.Assert(false, "We should never be here. Check base class impl");
                         break;
                     default:
                         throw new ArgumentOutOfRangeException();
 
                 }
+
                 base.OnCollectionChanged(e);
             }            
 
