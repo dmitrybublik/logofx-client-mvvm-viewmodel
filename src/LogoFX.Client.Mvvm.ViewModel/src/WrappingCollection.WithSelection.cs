@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Linq;
 using System.Windows.Threading;
 using LogoFX.Client.Core;
@@ -30,6 +29,7 @@ namespace LogoFX.Client.Mvvm.ViewModel
             private EventHandler<SelectionChangingEventArgs> _currentHandler;
             private Action<object, SelectionChangingEventArgs> _selectionHandler;
             private PropertyChangedEventHandler _internalSelectionHandler;
+            private readonly List<object> _suppressNotificationObjects = new List<object>();
 
             /// <summary>
             /// Initializes a new instance of the <see cref="WrappingCollection.WithSelection"/> class.
@@ -124,18 +124,50 @@ namespace LogoFX.Client.Mvvm.ViewModel
                 SetIsSelected(obj, false);
             }
 
-            private static void SetIsSelected(object obj, bool isSelecting)
+            private void SetIsSelected(object obj, bool isSelecting)
             {
                 if (obj is ISelectable selectable)
+                {
+                    if (_selectionPredicate != null)
+                    {
+                        _suppressNotificationObjects.Add(obj);
+                    }
+
                     selectable.IsSelected = isSelecting;
+
+                    if (_selectionPredicate != null)
+                    {
+                        _suppressNotificationObjects.Remove(obj);
+                    }
+                }
             }
 
             private void InternalIsSelectedChanged(object o, PropertyChangedEventArgs args)
             {
                 if (o != null && !_collectionManager.Contains(o))
+                {
                     ((INotifyPropertyChanged)o).PropertyChanged -= _internalSelectionHandler;
-                else if (args.PropertyName == "IsSelected" && o is ISelectable)
-                    Dispatch.Current.OnUiThread(() => HandleItemSelectionChanged(o, ((ISelectable)o).IsSelected));
+                }
+                else if (args.PropertyName == nameof(ISelectable.IsSelected) && o is ISelectable selectable)
+                {
+                    Dispatch.Current.OnUiThread(() =>
+                    {
+                        if (_selectionPredicate != null)
+                        {
+                            if (_suppressNotificationObjects.Contains(selectable))
+                            {
+                                return;
+                            }
+
+                            if (selectable.IsSelected && !_selectionPredicate(selectable))
+                            {
+                                _selectionPredicate = null;
+                            }
+                        }
+
+                        HandleItemSelectionChanged(o, selectable.IsSelected);
+                    });
+                }
             }
 
             private bool IsSelectionRequired => ((uint)_selectionMode & RequiredSelectionMask) != 0;
