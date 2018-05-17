@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using System.Linq;
 using FluentAssertions;
+using LogoFX.Core;
 using Xunit;
 
 namespace LogoFX.Client.Mvvm.ViewModel.Tests.WrappingCollectionTests
@@ -80,6 +81,24 @@ namespace LogoFX.Client.Mvvm.ViewModel.Tests.WrappingCollectionTests
             var firstItem = wrappingCollection.OfType<TestViewModel>().First();            
             wrappingCollection.Select(firstItem);
             originalDataSource.RemoveAt(0);
+
+            AssertEmptySelection(wrappingCollection);
+        }        
+
+        [Fact]
+        public void Selection_ItemIsSelectedThenAllItemsAreRemoved_SelectionIsEmpty()
+        {
+            var originalDataSource =
+                new RangeObservableCollection<TestModel>(new[] { new TestModel(1), new TestModel(2), new TestModel(3) });
+
+            var wrappingCollection =
+                new WrappingCollection.WithSelection(SelectionMode.ZeroOrMore)
+                {
+                    FactoryMethod = o => new TestViewModel((TestModel) o)
+                }.WithSource(originalDataSource);
+            var firstItem = wrappingCollection.OfType<TestViewModel>().First();            
+            wrappingCollection.Select(firstItem);
+            originalDataSource.RemoveRange(originalDataSource.ToArray());
 
             AssertEmptySelection(wrappingCollection);
         }        
