@@ -55,6 +55,9 @@ namespace LogoFX.Client.Mvvm.ViewModel
         {
             private readonly ObservableCollection<object> _items = new ObservableCollection<object>();
             
+            /// <summary>
+            /// This event is raised before the contents of the collection are cleared.
+            /// </summary>
             public event EventHandler<BeforeClearEventArgs> BeforeClear;
 
             public INotifyCollectionChanged CollectionChangedSource

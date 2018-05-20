@@ -176,6 +176,7 @@ namespace LogoFX.Client.Mvvm.ViewModel
 
             #region overrides
 
+            /// <inheritdoc />            
             protected override void OnBeforeClear(IEnumerable<object> items)
             {
                 void RemoveHandler(object a)
@@ -391,6 +392,7 @@ namespace LogoFX.Client.Mvvm.ViewModel
             public IEnumerable SelectedItems => _selectedItems;
 
             private Predicate<object> _selectionPredicate;
+            /// <inheritdoc />   
             public Predicate<object> SelectionPredicate
             {
                 get => _selectionPredicate;

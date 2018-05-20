@@ -168,6 +168,11 @@ namespace LogoFX.Client.Mvvm.ViewModel
             }
         }
 
+        /// <summary>
+        /// Provides an option to inject additional functionality
+        /// before the items are cleared from the collection.
+        /// </summary>
+        /// <param name="items">The items to be cleared.</param>
         protected virtual void OnBeforeClear(IEnumerable<object> items)
         {
         }
