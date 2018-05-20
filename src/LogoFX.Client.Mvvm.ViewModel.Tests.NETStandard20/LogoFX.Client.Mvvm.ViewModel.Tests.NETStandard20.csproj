@@ -103,18 +103,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\logofx-client-mvvm-model\src\LogoFX.Client.Mvvm.Model.Contracts\netstandard2.0\LogoFX.Client.Mvvm.Model.Contracts.NETStandard20.csproj">
-      <Project>{2e221910-0b7d-4adc-9333-fb9a3ab9f190}</Project>
-      <Name>LogoFX.Client.Mvvm.Model.Contracts.NETStandard20</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\logofx-client-mvvm-model\src\LogoFX.Client.Mvvm.Model\netstandard2.0\LogoFX.Client.Mvvm.Model.NETStandard20.csproj">
-      <Project>{8e9a5f47-87ba-42c6-bf3f-6adeb045304c}</Project>
-      <Name>LogoFX.Client.Mvvm.Model.NETStandard20</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\logofx-core\src\LogoFX.Core\netstandard2.0\LogoFX.Core.NETStandard20.csproj">
-      <Project>{575ec3e1-6110-4e9a-b1d5-b26bed8a9846}</Project>
-      <Name>LogoFX.Core.NETStandard20</Name>
-    </ProjectReference>
     <ProjectReference Include="..\LogoFX.Client.Mvvm.ViewModel.Contracts\netstandard2.0\LogoFX.Client.Mvvm.ViewModel.Contracts.NETStandard20.csproj">
       <Project>{f58c7f64-1161-4ba3-8936-4200ed92f9a2}</Project>
       <Name>LogoFX.Client.Mvvm.ViewModel.Contracts.NETStandard20</Name>

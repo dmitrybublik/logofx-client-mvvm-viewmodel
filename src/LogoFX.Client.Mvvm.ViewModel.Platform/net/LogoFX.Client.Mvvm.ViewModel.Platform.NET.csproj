@@ -53,10 +53,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\logofx-core\src\LogoFX.Core\netstandard2.0\LogoFX.Core.NETStandard20.csproj">
-      <Project>{575ec3e1-6110-4e9a-b1d5-b26bed8a9846}</Project>
-      <Name>LogoFX.Core.NETStandard20</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\LogoFX.Client.Mvvm.ViewModel\netstandard2.0\LogoFX.Client.Mvvm.ViewModel.NETStandard20.csproj">
       <Project>{cecd871a-8af1-45bc-86ce-56b0b1b8611b}</Project>
       <Name>LogoFX.Client.Mvvm.ViewModel.NETStandard20</Name>
