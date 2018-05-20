@@ -35,9 +35,6 @@
     <Reference Include="LogoFX.Client.Core, Version=1.2.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\LogoFX.Client.Core.Core.1.2.1-rc2\lib\netstandard2.0\LogoFX.Client.Core.dll</HintPath>
     </Reference>
-    <Reference Include="LogoFX.Core, Version=1.1.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\LogoFX.Core.1.1.1-rc2\lib\netstandard2.0\LogoFX.Core.dll</HintPath>
-    </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
@@ -56,6 +53,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\logofx-core\src\LogoFX.Core\netstandard2.0\LogoFX.Core.NETStandard20.csproj">
+      <Project>{575ec3e1-6110-4e9a-b1d5-b26bed8a9846}</Project>
+      <Name>LogoFX.Core.NETStandard20</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\LogoFX.Client.Mvvm.ViewModel\netstandard2.0\LogoFX.Client.Mvvm.ViewModel.NETStandard20.csproj">
       <Project>{cecd871a-8af1-45bc-86ce-56b0b1b8611b}</Project>
       <Name>LogoFX.Client.Mvvm.ViewModel.NETStandard20</Name>
