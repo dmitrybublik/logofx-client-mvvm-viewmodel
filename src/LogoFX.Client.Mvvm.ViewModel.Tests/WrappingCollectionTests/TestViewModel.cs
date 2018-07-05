@@ -1,12 +1,10 @@
 ﻿namespace LogoFX.Client.Mvvm.ViewModel.Tests.WrappingCollectionTests
 {
-    class TestViewModel
-    {
-        public TestModel Model { get; private set; }
-
+    class TestViewModel : ObjectViewModel<TestModel>
+    {        
         public TestViewModel(TestModel model)
-        {
-            Model = model;
+            :base(model)
+        {            
         }
     }
 }

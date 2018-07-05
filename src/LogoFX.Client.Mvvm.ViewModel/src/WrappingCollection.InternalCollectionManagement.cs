@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
@@ -22,8 +23,19 @@ namespace LogoFX.Client.Mvvm.ViewModel
             }            
         }
 
+        private class BeforeClearEventArgs : EventArgs
+        {
+            public BeforeClearEventArgs(IEnumerable<object> items)
+            {
+                Items = items;
+            }
+
+            public IEnumerable<object> Items { get; private set; }
+        }
+
         private interface ICollectionManager
         {
+            event EventHandler<BeforeClearEventArgs> BeforeClear;
             INotifyCollectionChanged CollectionChangedSource { get; }
             IEnumerator GetEnumerator();
             int ItemsCount { get; }
@@ -42,6 +54,12 @@ namespace LogoFX.Client.Mvvm.ViewModel
         private class RegularCollectionManager : ICollectionManager
         {
             private readonly ObservableCollection<object> _items = new ObservableCollection<object>();
+            
+            /// <summary>
+            /// This event is raised before the contents of the collection are cleared.
+            /// </summary>
+            public event EventHandler<BeforeClearEventArgs> BeforeClear;
+
             public INotifyCollectionChanged CollectionChangedSource
             {
                 get { return _items; }
@@ -111,6 +129,9 @@ namespace LogoFX.Client.Mvvm.ViewModel
         private class RangeCollectionManager : ICollectionManager
         {
             private readonly RangeObservableCollection<object> _items = new RangeObservableCollection<object>();
+
+            public event EventHandler<BeforeClearEventArgs> BeforeClear = delegate { };
+
             public INotifyCollectionChanged CollectionChangedSource
             {
                 get { return _items; }
@@ -143,7 +164,7 @@ namespace LogoFX.Client.Mvvm.ViewModel
 
             public void RemoveRange(IEnumerable<object> items)
             {
-                _items.RemoveRange(items);
+                _items.RemoveRange(items, en => { BeforeClear(this, new BeforeClearEventArgs(en)); });
             }
 
             public int IndexOf(object item)

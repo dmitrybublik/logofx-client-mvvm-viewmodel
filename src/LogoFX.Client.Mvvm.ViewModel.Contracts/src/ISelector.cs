@@ -11,7 +11,7 @@
     /// <summary>
     /// Provides various options for selection.
     /// </summary>
-    public interface ISelector : IHaveSelectedItem, IHaveSelectedItems, INotifySelectionChanged, ISelect, IUnselect
+    public interface ISelector : IHaveSelectedItem, IHaveSelectedItems, IHaveSelectionPredicate, INotifySelectionChanged, ISelect, IUnselect
     {
     }
 }

@@ -38,8 +38,12 @@ namespace LogoFX.Client.Mvvm.ViewModel
         public WrappingCollection(bool isBulk = false)
         {
             _collectionManager = isBulk
-                ? CollectionManagerFactory.CreateRangeManager() : CollectionManagerFactory.CreateRegularManager();
+                ? CollectionManagerFactory.CreateRangeManager()
+                : CollectionManagerFactory.CreateRegularManager();
+            
             _collectionManager.CollectionChangedSource.CollectionChanged += OnCollectionChangedCore;
+            _collectionManager.BeforeClear += OnBeforeClearCore;
+            
             _sources.CollectionChanged += SourcesCollectionChanged;
         }
 
@@ -151,7 +155,29 @@ namespace LogoFX.Client.Mvvm.ViewModel
             return FactoryMethod != null ? FactoryMethod(obj) : _defaultFactoryMethod(obj);
         }
 
-        private void OnCollectionChangedCore(object o,NotifyCollectionChangedEventArgs args)
+        private void OnBeforeClearCore(object sender, BeforeClearEventArgs args)
+        {
+            try
+            {
+                OnBeforeClear(args.Items);
+            }
+
+            catch (Exception e)
+            {
+                Debug.WriteLine(e.Message);
+            }
+        }
+
+        /// <summary>
+        /// Provides an option to inject additional functionality
+        /// before the items are cleared from the collection.
+        /// </summary>
+        /// <param name="items">The items to be cleared.</param>
+        protected virtual void OnBeforeClear(IEnumerable<object> items)
+        {
+        }
+
+        private void OnCollectionChangedCore(object o, NotifyCollectionChangedEventArgs args)
         {
             if (args.Action != NotifyCollectionChangedAction.Reset && _loadingViewModel != null)
             {
@@ -162,6 +188,7 @@ namespace LogoFX.Client.Mvvm.ViewModel
             {
                 OnCollectionChanged(args);
             }
+
             catch (Exception e)
             {
                 Debug.WriteLine(e.Message);
@@ -191,6 +218,7 @@ namespace LogoFX.Client.Mvvm.ViewModel
         /// <filterpriority>2</filterpriority>
         public void Dispose()
         {
+            _collectionManager.BeforeClear -= OnBeforeClearCore;
             _collectionManager.CollectionChangedSource.CollectionChanged -= OnCollectionChangedCore;            
 
             Sources

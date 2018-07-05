@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
@@ -9,10 +9,14 @@
     <AssemblyOriginatorKeyFile>LogoFX.pfx</AssemblyOriginatorKeyFile>
   </PropertyGroup>
 
+  <PropertyGroup>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+  </PropertyGroup>
+
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <OutputPath>..\..\Bin\netstandard2.0\Release</OutputPath>
-    <DocumentationFile>..\..\Bin\netstandard2.0\Release\netstandard2.0\LogoFX.Client.Mvvm.ViewModel.Contracts.xml</DocumentationFile>
-  </PropertyGroup>
+    <DocumentationFile>..\..\Bin\netstandard2.0\Release\LogoFX.Client.Mvvm.ViewModel.Contracts.xml</DocumentationFile>
+  </PropertyGroup>  
 
   <ItemGroup>
     <Compile Include="..\src\ICanBeBusy.cs" Link="ICanBeBusy.cs" />
@@ -23,6 +27,7 @@
     <Compile Include="..\src\IHaveLoadingViewModel.cs" Link="IHaveLoadingViewModel.cs" />
     <Compile Include="..\src\IHaveSelectedItem.cs" Link="IHaveSelectedItem.cs" />
     <Compile Include="..\src\IHaveSelectedItems.cs" Link="IHaveSelectedItems.cs" />
+    <Compile Include="..\src\IHaveSelectionPredicate.cs" Link="IHaveSelectionPredicate.cs" />
     <Compile Include="..\src\IHierarсhicalViewModel.cs" Link="IHierarсhicalViewModel.cs" />
     <Compile Include="..\src\IModelWrapper.cs" Link="IModelWrapper.cs" />
     <Compile Include="..\src\INotifySelectionChanged.cs" Link="INotifySelectionChanged.cs" />
