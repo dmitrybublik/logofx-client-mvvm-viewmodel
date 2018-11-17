@@ -53,13 +53,13 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\LogoFX.Client.Mvvm.ViewModel\netstandard2.0\LogoFX.Client.Mvvm.ViewModel.NETStandard20.csproj">
-      <Project>{cecd871a-8af1-45bc-86ce-56b0b1b8611b}</Project>
-      <Name>LogoFX.Client.Mvvm.ViewModel.NETStandard20</Name>
-    </ProjectReference>
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
+    <ProjectReference Include="..\..\LogoFX.Client.Mvvm.ViewModel\LogoFX.Client.Mvvm.ViewModel.csproj">
+      <Project>{71e80e75-ac32-48f9-8211-204631c719b5}</Project>
+      <Name>LogoFX.Client.Mvvm.ViewModel</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

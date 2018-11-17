@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <AssemblyName>LogoFX.Client.Mvvm.ViewModel.Contracts</AssemblyName>
+    <RootNamespace>LogoFX.Client.Mvvm.ViewModel.Contracts</RootNamespace>
+    <Version>1.1.1</Version>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <OutputPath>..\Bin\netstandard2.0\Release</OutputPath>
+    <DocumentationFile>..\Bin\netstandard2.0\Release\LogoFX.Client.Mvvm.ViewModel.Contracts.xml</DocumentationFile>
+  </PropertyGroup>  
+ 
+
+</Project>
