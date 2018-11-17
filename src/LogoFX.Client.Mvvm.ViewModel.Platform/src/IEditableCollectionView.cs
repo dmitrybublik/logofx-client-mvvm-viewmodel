@@ -1,4 +1,4 @@
-namespace Billionaires.Universal.Mvvm
+namespace LogoFX.Client.Mvvm.ViewModel
 {
     /// <summary>
     /// Implements a WinRT version of the IEditableCollectionView interface.

@@ -139,9 +139,9 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\LogoFX.Client.Mvvm.ViewModel\netstandard2.0\LogoFX.Client.Mvvm.ViewModel.NETStandard20.csproj">
-      <Project>{cecd871a-8af1-45bc-86ce-56b0b1b8611b}</Project>
-      <Name>LogoFX.Client.Mvvm.ViewModel.NETStandard20</Name>
+    <ProjectReference Include="..\..\LogoFX.Client.Mvvm.ViewModel\LogoFX.Client.Mvvm.ViewModel.csproj">
+      <Project>{71e80e75-ac32-48f9-8211-204631c719b5}</Project>
+      <Name>LogoFX.Client.Mvvm.ViewModel</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">

@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LogoFX.Client.Mvvm.ViewMode
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogoFX.Client.Mvvm.ViewModel.Tests", "LogoFX.Client.Mvvm.ViewModel.Tests\LogoFX.Client.Mvvm.ViewModel.Tests.csproj", "{1FBFE2A6-1549-40D9-B792-052E4D742C64}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogoFX.Client.Mvvm.ViewModel.Platform.UWP", "LogoFX.Client.Mvvm.ViewModel.Platform\uwp\LogoFX.Client.Mvvm.ViewModel.Platform.UWP.csproj", "{5830102C-BF7D-468B-8866-27C4250DFA87}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -87,6 +89,22 @@ Global
 		{1FBFE2A6-1549-40D9-B792-052E4D742C64}.Release|x64.Build.0 = Release|Any CPU
 		{1FBFE2A6-1549-40D9-B792-052E4D742C64}.Release|x86.ActiveCfg = Release|Any CPU
 		{1FBFE2A6-1549-40D9-B792-052E4D742C64}.Release|x86.Build.0 = Release|Any CPU
+		{5830102C-BF7D-468B-8866-27C4250DFA87}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5830102C-BF7D-468B-8866-27C4250DFA87}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5830102C-BF7D-468B-8866-27C4250DFA87}.Debug|ARM.ActiveCfg = Debug|ARM
+		{5830102C-BF7D-468B-8866-27C4250DFA87}.Debug|ARM.Build.0 = Debug|ARM
+		{5830102C-BF7D-468B-8866-27C4250DFA87}.Debug|x64.ActiveCfg = Debug|x64
+		{5830102C-BF7D-468B-8866-27C4250DFA87}.Debug|x64.Build.0 = Debug|x64
+		{5830102C-BF7D-468B-8866-27C4250DFA87}.Debug|x86.ActiveCfg = Debug|x86
+		{5830102C-BF7D-468B-8866-27C4250DFA87}.Debug|x86.Build.0 = Debug|x86
+		{5830102C-BF7D-468B-8866-27C4250DFA87}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5830102C-BF7D-468B-8866-27C4250DFA87}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5830102C-BF7D-468B-8866-27C4250DFA87}.Release|ARM.ActiveCfg = Release|ARM
+		{5830102C-BF7D-468B-8866-27C4250DFA87}.Release|ARM.Build.0 = Release|ARM
+		{5830102C-BF7D-468B-8866-27C4250DFA87}.Release|x64.ActiveCfg = Release|x64
+		{5830102C-BF7D-468B-8866-27C4250DFA87}.Release|x64.Build.0 = Release|x64
+		{5830102C-BF7D-468B-8866-27C4250DFA87}.Release|x86.ActiveCfg = Release|x86
+		{5830102C-BF7D-468B-8866-27C4250DFA87}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
