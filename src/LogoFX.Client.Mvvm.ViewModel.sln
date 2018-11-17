@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27004.2010
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogoFX.Client.Mvvm.ViewModel.Platform.UWP", "LogoFX.Client.Mvvm.ViewModel.Platform\uwp\LogoFX.Client.Mvvm.ViewModel.Platform.UWP.csproj", "{5830102C-BF7D-468B-8866-27C4250DFA87}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{EB39E626-B49B-4589-A028-1F993711C058}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LogoFX.Client.Mvvm.ViewModel.Contracts.NETStandard20", "LogoFX.Client.Mvvm.ViewModel.Contracts\netstandard2.0\LogoFX.Client.Mvvm.ViewModel.Contracts.NETStandard20.csproj", "{F58C7F64-1161-4BA3-8936-4200ED92F9A2}"
@@ -27,22 +25,6 @@ Global
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{5830102C-BF7D-468B-8866-27C4250DFA87}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5830102C-BF7D-468B-8866-27C4250DFA87}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5830102C-BF7D-468B-8866-27C4250DFA87}.Debug|ARM.ActiveCfg = Debug|ARM
-		{5830102C-BF7D-468B-8866-27C4250DFA87}.Debug|ARM.Build.0 = Debug|ARM
-		{5830102C-BF7D-468B-8866-27C4250DFA87}.Debug|x64.ActiveCfg = Debug|x64
-		{5830102C-BF7D-468B-8866-27C4250DFA87}.Debug|x64.Build.0 = Debug|x64
-		{5830102C-BF7D-468B-8866-27C4250DFA87}.Debug|x86.ActiveCfg = Debug|x86
-		{5830102C-BF7D-468B-8866-27C4250DFA87}.Debug|x86.Build.0 = Debug|x86
-		{5830102C-BF7D-468B-8866-27C4250DFA87}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5830102C-BF7D-468B-8866-27C4250DFA87}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5830102C-BF7D-468B-8866-27C4250DFA87}.Release|ARM.ActiveCfg = Release|ARM
-		{5830102C-BF7D-468B-8866-27C4250DFA87}.Release|ARM.Build.0 = Release|ARM
-		{5830102C-BF7D-468B-8866-27C4250DFA87}.Release|x64.ActiveCfg = Release|x64
-		{5830102C-BF7D-468B-8866-27C4250DFA87}.Release|x64.Build.0 = Release|x64
-		{5830102C-BF7D-468B-8866-27C4250DFA87}.Release|x86.ActiveCfg = Release|x86
-		{5830102C-BF7D-468B-8866-27C4250DFA87}.Release|x86.Build.0 = Release|x86
 		{F58C7F64-1161-4BA3-8936-4200ED92F9A2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{F58C7F64-1161-4BA3-8936-4200ED92F9A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F58C7F64-1161-4BA3-8936-4200ED92F9A2}.Debug|ARM.ActiveCfg = Debug|Any CPU
